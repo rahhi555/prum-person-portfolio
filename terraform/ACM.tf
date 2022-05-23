@@ -1,12 +1,12 @@
 # ssl証明書のリクエスト
-resource "aws_acm_certificate" "prum_portfolio" {
+resource "aws_acm_certificate" "prum_person_portfolio" {
   domain_name = "www.hirabayashi.work"
   # domain_nameとは別に追加したいドメイン名がある場合は記入する。なければ空配列。
   subject_alternative_names = []
   validation_method = "DNS"
 
   tags = {
-    Name = "prum_portfolio-acm"
+    Name = "prum_person_portfolio-acm"
   }
 
   lifecycle {
@@ -18,9 +18,9 @@ resource "aws_acm_certificate" "prum_portfolio" {
 }
 
 # 検証用DNSレコード
-resource "aws_route53_record" "prum_portfolio_certificate" {
+resource "aws_route53_record" "prum_person_portfolio_certificate" {
   for_each = {
-    for dvo in aws_acm_certificate.prum_portfolio.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.prum_person_portfolio.domain_validation_options : dvo.domain_name => {
       name = dvo.resource_record_name
       record = dvo.resource_record_value
       type = dvo.resource_record_type
@@ -33,12 +33,12 @@ resource "aws_route53_record" "prum_portfolio_certificate" {
   ttl = 60
   type = each.value.type
   # hirabayahsi.workのホストゾーンID(ブラウザのRoute53から確認)
-  zone_id = aws_route53_zone.prum_portfolio_route53_zone.zone_id
+  zone_id = aws_route53_zone.prum_person_portfolio_route53_zone.zone_id
 }
 
 # 検証の待機
-resource "aws_acm_certificate_validation" "prum_portfolio" {
-  certificate_arn = aws_acm_certificate.prum_portfolio.arn
-  validation_record_fqdns = [ for record in aws_route53_record.prum_portfolio_certificate : record.fqdn ]
+resource "aws_acm_certificate_validation" "prum_person_portfolio" {
+  certificate_arn = aws_acm_certificate.prum_person_portfolio.arn
+  validation_record_fqdns = [ for record in aws_route53_record.prum_person_portfolio_certificate : record.fqdn ]
 }
 

@@ -1,7 +1,7 @@
 [
   {
-    "name": "prum_portfolio_web",
-    "image": "299271904246.dkr.ecr.ap-northeast-1.amazonaws.com/prum-portfolio-web:latest",
+    "name": "prum_person_portfolio_api",
+    "image": "299271904246.dkr.ecr.ap-northeast-1.amazonaws.com/prum-person-portfolio-api:latest",
     "essential": true,
     "portMappings": [
       {
@@ -13,13 +13,13 @@
       "logDriver": "awslogs",
       "secretOptions": null,
       "options": {
-        "awslogs-group": "/ecs/web",
+        "awslogs-group": "/ecs/api",
         "awslogs-region": "ap-northeast-1",
-        "awslogs-stream-prefix": "ecs-web"
+        "awslogs-stream-prefix": "ecs-api"
       }
     },
     "command": [
-      "rake", "cmd:setup"
+      "rake", "cmd:start"
     ],
     "environment": [
       {
@@ -30,7 +30,7 @@
     "secrets": [
       {
         "name": "RAILS_MASTER_KEY",
-        "valueFrom": "/web/rails-master-key"
+        "valueFrom": "/api/rails-master-key"
       }
     ]
   }

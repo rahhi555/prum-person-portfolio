@@ -2,7 +2,7 @@
 module "http_sg" {
   source = "./security_group"
   name = "http-sg"
-  vpc_id = aws_vpc.prum_portfolio.id
+  vpc_id = aws_vpc.prum_person_portfolio.id
   port = 80
   cidr_blocks = ["0.0.0.0/0"]
 }
@@ -11,7 +11,7 @@ module "http_sg" {
 module "https_sg" {
   source = "./security_group"
   name = "https-sg"
-  vpc_id = aws_vpc.prum_portfolio.id
+  vpc_id = aws_vpc.prum_person_portfolio.id
   port = 443
   cidr_blocks = ["0.0.0.0/0"]
 }
@@ -20,14 +20,14 @@ module "https_sg" {
 module "https_api_sg" {
   source = "./security_group"
   name = "https-api-sg"
-  vpc_id = aws_vpc.prum_portfolio.id
+  vpc_id = aws_vpc.prum_person_portfolio.id
   port = 3000
   cidr_blocks = ["0.0.0.0/0"]
 }
 
 # アプリケーションロードバランサー
-resource "aws_lb" "prum_portfolio" {
-  name = "prum-portfolio"
+resource "aws_lb" "prum_person_portfolio" {
+  name = "prum-person-portfolio"
   load_balancer_type = "application"
   # インターネット向けか内部向けか。falseならインターネット向け。
   internal = false
@@ -54,17 +54,17 @@ resource "aws_lb" "prum_portfolio" {
 }
 
 output "alb_dns_name" {
-  value = aws_lb.prum_portfolio.dns_name
+  value = aws_lb.prum_person_portfolio.dns_name
 }
 
 ###############    front側のリスナー及びターゲットグループの設定    #################
 
 # albのhttps用リスナー
 resource "aws_lb_listener" "https" {
-  load_balancer_arn = aws_lb.prum_portfolio.arn
+  load_balancer_arn = aws_lb.prum_person_portfolio.arn
   port = "443"
   protocol = "HTTPS"
-  certificate_arn = aws_acm_certificate.prum_portfolio.arn
+  certificate_arn = aws_acm_certificate.prum_person_portfolio.arn
   ssl_policy = "ELBSecurityPolicy-2016-08"
 
   default_action {
@@ -80,7 +80,7 @@ resource "aws_lb_listener" "https" {
 
 # httpからhttpsにリダイレクトするリスナー
 resource "aws_lb_listener" "redirect_http_to_https" {
-  load_balancer_arn = aws_lb.prum_portfolio.arn
+  load_balancer_arn = aws_lb.prum_person_portfolio.arn
   port = "80"
   protocol = "HTTP"
 
@@ -96,16 +96,16 @@ resource "aws_lb_listener" "redirect_http_to_https" {
 }
 
 # ターゲットグループ
-resource "aws_lb_target_group" "prum_portfolio" {
-  name = "prum-portfolio"
+resource "aws_lb_target_group" "prum_person_portfolio" {
+  name = "prum-person-portfolio"
   target_type = "ip"
-  vpc_id = aws_vpc.prum_portfolio.id
+  vpc_id = aws_vpc.prum_person_portfolio.id
   port = 80
   protocol = "HTTP"
   deregistration_delay = 300
 
   health_check {
-    path = "/server/health-check"
+    path = "/"
     # 正常のしきい値 この回数分連続でヘルスチェックに成功すれば正常とみなされる
     healthy_threshold = 5
     # 非正常のしきい値　この回数分連続でヘルスチェックに失敗すると異常とみなされる
@@ -119,21 +119,21 @@ resource "aws_lb_target_group" "prum_portfolio" {
     protocol = "HTTP"
   }
   # 依存関係を明示する
-  depends_on = [aws_lb.prum_portfolio]
+  depends_on = [aws_lb.prum_person_portfolio]
   
   tags = {
-    Name = "prum_portfolio-alb-target"
+    Name = "prum_person_portfolio-alb-target"
   }
 }
 
 # ターゲットグループにリクエストをフォワードするリスナールール
-resource "aws_lb_listener_rule" "prum_portfolio" {
+resource "aws_lb_listener_rule" "prum_person_portfolio" {
   listener_arn = aws_lb_listener.https.arn
   priority = 99
 
   action {
     type = "forward"
-    target_group_arn = aws_lb_target_group.prum_portfolio.arn
+    target_group_arn = aws_lb_target_group.prum_person_portfolio.arn
   }
 
   condition {
@@ -148,10 +148,10 @@ resource "aws_lb_listener_rule" "prum_portfolio" {
 
 # albのapi用リスナー(frontをhttpsにしているので、api側もhttpsにしないとmixed contentエラーが発生する)
 resource "aws_lb_listener" "api" {
-  load_balancer_arn = aws_lb.prum_portfolio.arn
+  load_balancer_arn = aws_lb.prum_person_portfolio.arn
   port = "3000"
   protocol = "HTTPS"
-  certificate_arn = aws_acm_certificate.prum_portfolio.arn
+  certificate_arn = aws_acm_certificate.prum_person_portfolio.arn
   ssl_policy = "ELBSecurityPolicy-2016-08"
 
   default_action {
@@ -166,10 +166,10 @@ resource "aws_lb_listener" "api" {
 }
 
 # ターゲットグループ(api)
-resource "aws_lb_target_group" "prum_portfolio_api" {
-  name = "prum-portfolio-api"
+resource "aws_lb_target_group" "prum_person_portfolio_api" {
+  name = "prum-person-portfolio-api"
   target_type = "ip"
-  vpc_id = aws_vpc.prum_portfolio.id
+  vpc_id = aws_vpc.prum_person_portfolio.id
   port = 3000
   protocol = "HTTP"
   deregistration_delay = 300
@@ -189,21 +189,21 @@ resource "aws_lb_target_group" "prum_portfolio_api" {
     protocol = "HTTP"
   }
   # 依存関係を明示する
-  depends_on = [aws_lb.prum_portfolio]
+  depends_on = [aws_lb.prum_person_portfolio]
   
   tags = {
-    Name = "prum_portfolio-alb-api-target"
+    Name = "prum_person_portfolio-alb-api-target"
   }
 }
 
 # ターゲットグループにリクエストをフォワードするリスナールール(api)
-resource "aws_lb_listener_rule" "prum_portfolio_api" {
+resource "aws_lb_listener_rule" "prum_person_portfolio_api" {
   listener_arn = aws_lb_listener.api.arn
   priority = 98
 
   action {
     type = "forward"
-    target_group_arn = aws_lb_target_group.prum_portfolio_api.arn
+    target_group_arn = aws_lb_target_group.prum_person_portfolio_api.arn
   }
 
   condition {

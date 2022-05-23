@@ -2,30 +2,30 @@
 module "front_sg" {
   source = "./security_group"
   name   = "front-sg"
-  vpc_id = aws_vpc.prum_portfolio.id
+  vpc_id = aws_vpc.prum_person_portfolio.id
   port   = 80
   # vpc内のみでの通信のため、インバウンドルールのcidr_blockはvpcのものを指定する
-  cidr_blocks = [aws_vpc.prum_portfolio.cidr_block]
+  cidr_blocks = [aws_vpc.prum_person_portfolio.cidr_block]
 }
 
-# webのサービスに割り当てるRDS用のセキュリティーグループ
-module "web_sg" {
+# apiのサービスに割り当てるRDS用のセキュリティーグループ
+module "api_sg" {
   source = "./security_group"
-  name   = "web-sg"
-  vpc_id = aws_vpc.prum_portfolio.id
-  port   = 3306
+  name   = "api-sg"
+  vpc_id = aws_vpc.prum_person_portfolio.id
+  port   = 5432
   # vpc内のみでの通信のため、インバウンドルールのcidr_blockはvpcのものを指定する
-  cidr_blocks = [aws_vpc.prum_portfolio.cidr_block]
+  cidr_blocks = [aws_vpc.prum_person_portfolio.cidr_block]
 }
 
 # 上記のセキュリティーグループにfront用のインバウンドルール追加
-resource "aws_security_group_rule" "ingress_prum_portfolio_web_front" {
+resource "aws_security_group_rule" "ingress_prum_person_portfolio_api_front" {
   type              = "ingress"
   from_port         = 3000
   to_port           = 3000
   protocol          = "tcp"
-  cidr_blocks       = [aws_vpc.prum_portfolio.cidr_block]
-  security_group_id = module.web_sg.security_group_id
+  cidr_blocks       = [aws_vpc.prum_person_portfolio.cidr_block]
+  security_group_id = module.api_sg.security_group_id
 }
 
 # ECSタスク実行IAMロールを取得し、ECRの操作権限を付与できるようにする
@@ -36,8 +36,7 @@ data "aws_iam_policy" "ecs_task_execution_role_policy" {
 
 # ECSタスク実行IAMロールのポリシードキュメントの定義
 data "aws_iam_policy_document" "ecs_task_execution" {
-  # source_json とすることで、ポリシーを継承することができる
-  # source_json = data.aws_iam_policy.ecs_task_execution_role_policy.policy
+  # ポリシーの継承することができる
   source_policy_documents = [
     data.aws_iam_policy.ecs_task_execution_role_policy.policy
   ]
@@ -83,13 +82,13 @@ module "ecs_for_exec" {
 }
 
 # ECSクラスター
-resource "aws_ecs_cluster" "prum_portfolio" {
-  name = "prum_portfolio"
+resource "aws_ecs_cluster" "prum_person_portfolio" {
+  name = "prum_person_portfolio"
 }
 
 # ECSタスク定義 front
-resource "aws_ecs_task_definition" "prum_portfolio_front" {
-  family = "prum_portfolio_front"
+resource "aws_ecs_task_definition" "prum_person_portfolio_front" {
+  family = "prum_person_portfolio_front"
   cpu = "256"
   memory = "512"
   network_mode = "awsvpc"
@@ -103,10 +102,10 @@ resource "aws_ecs_task_definition" "prum_portfolio_front" {
 }
 
 # ECSサービス front
-resource "aws_ecs_service" "prum_portfolio_front" {
-  name = "prum_portfolio_service_front"
-  cluster = aws_ecs_cluster.prum_portfolio.arn
-  task_definition = aws_ecs_task_definition.prum_portfolio_front.arn
+resource "aws_ecs_service" "prum_person_portfolio_front" {
+  name = "prum_person_portfolio_service_front"
+  cluster = aws_ecs_cluster.prum_person_portfolio.arn
+  task_definition = aws_ecs_task_definition.prum_person_portfolio_front.arn
   desired_count = 1
   launch_type = "FARGATE"
   # FARGATEを選択したときのみ適用される。デフォルトは"LATEST"。
@@ -129,9 +128,9 @@ resource "aws_ecs_service" "prum_portfolio_front" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.prum_portfolio.arn
+    target_group_arn = aws_lb_target_group.prum_person_portfolio.arn
     # コンテナ定義で設定したコンテナの名前
-    container_name = "prum_portfolio_front"
+    container_name = "prum_person_portfolio_front"
     container_port = 80
   }
 
@@ -140,9 +139,9 @@ resource "aws_ecs_service" "prum_portfolio_front" {
   }
 }
 
-# ECSタスク定義 web
-resource "aws_ecs_task_definition" "prum_portfolio_web" {
-  family = "prum_portfolio_web"
+# ECSタスク定義 api
+resource "aws_ecs_task_definition" "prum_person_portfolio_api" {
+  family = "prum_person_portfolio_api"
   cpu = "256"
   memory = "512"
   network_mode = "awsvpc"
@@ -152,14 +151,14 @@ resource "aws_ecs_task_definition" "prum_portfolio_web" {
   # CloudWacthにログを投げるためのタスク実行時IAMロール
   execution_role_arn = module.ecs_task_execution_role.iam_role_arn
   # コンテナ定義
-  container_definitions = file("./container_definitions/web.json")
+  container_definitions = file("./container_definitions/api.json")
 }
 
-# ECSサービス web
-resource "aws_ecs_service" "prum_portfolio_web" {
-  name = "prum_portfolio_service_web"
-  cluster = aws_ecs_cluster.prum_portfolio.arn
-  task_definition = aws_ecs_task_definition.prum_portfolio_web.arn
+# ECSサービス api
+resource "aws_ecs_service" "prum_person_portfolio_api" {
+  name = "prum_person_portfolio_service_api"
+  cluster = aws_ecs_cluster.prum_person_portfolio.arn
+  task_definition = aws_ecs_task_definition.prum_person_portfolio_api.arn
   desired_count = 1
   launch_type = "FARGATE"
   # FARGATEを選択したときのみ適用される。デフォルトは"LATEST"。
@@ -173,16 +172,16 @@ resource "aws_ecs_service" "prum_portfolio_web" {
     # プライベートサブネットを割り当てるならfalseでいいが、その場合ecrからコンテナを引っ張ってくるため
     # NAT gateway 等のエンドポイントが必要になる。
     assign_public_ip = true
-    security_groups = [ module.web_sg.security_group_id ]
+    security_groups = [ module.api_sg.security_group_id ]
     subnets = [ 
       aws_subnet.public.id,
     ]
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.prum_portfolio_api.arn
+    target_group_arn = aws_lb_target_group.prum_person_portfolio_api.arn
     # コンテナ定義で設定したコンテナの名前
-    container_name = "prum_portfolio_web"
+    container_name = "prum_person_portfolio_api"
     container_port = 3000
   }
 

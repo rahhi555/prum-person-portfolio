@@ -1,0 +1,59 @@
+{
+  "containerDefinitions": [
+      {
+          "name": "prum_person_portfolio_api",
+          "image": "299271904246.dkr.ecr.ap-northeast-1.amazonaws.com/prum-person-portfolio-api:latest",
+          "cpu": 0,
+          "portMappings": [
+              {
+                  "containerPort": 3000,
+                  "hostPort": 3000,
+                  "protocol": "tcp"
+              }
+          ],
+          "essential": true,
+          "command": [
+              "rake",
+              "cmd:start"
+          ],
+          "environment": [
+              {
+                  "name": "RAILS_ENV",
+                  "value": "production"
+              }
+          ],
+          "mountPoints": [],
+          "volumesFrom": [],
+          "secrets": [
+              {
+                  "name": "RAILS_MASTER_KEY",
+                  "valueFrom": "/api/rails-master-key"
+              }
+          ],
+          "logConfiguration": {
+              "logDriver": "awslogs",
+              "options": {
+                  "awslogs-group": "/ecs/api",
+                  "awslogs-region": "ap-northeast-1",
+                  "awslogs-stream-prefix": "ecs-api"
+              }
+          }
+      }
+  ],
+  "family": "prum_person_portfolio_api",
+  "taskRoleArn": "arn:aws:iam::299271904246:role/ecs-for-exec",
+  "executionRoleArn": "arn:aws:iam::299271904246:role/ecs-task-execution",
+  "networkMode": "awsvpc",
+  "volumes": [],
+  "placementConstraints": [],
+  "compatibilities": [
+      "EC2",
+      "FARGATE"
+  ],
+  "requiresCompatibilities": [
+      "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "tags": []
+}

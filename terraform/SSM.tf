@@ -19,7 +19,7 @@ resource "aws_ssm_parameter" "browser_base_url" {
 
 # railsのマスターキー
 resource "aws_ssm_parameter" "rails_master_key" {
-  name = "/web/rails-master-key"
+  name = "/api/rails-master-key"
   value = "master-key"
   type = "SecureString"
   description = "railsのマスターキー"
