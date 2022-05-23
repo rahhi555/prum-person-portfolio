@@ -53,7 +53,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.GITHUB_WORKSPACE }}/api-ecs-task-def.json
+          task-definition: /home/runner/work/prum-person-portfolio/prum-person-portfolio/api/api-ecs-task-def.json
           container-name: prum_person_portfolio_api
           image: ${{ steps.build-image.outputs.image }}      
 
