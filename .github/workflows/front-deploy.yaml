@@ -55,7 +55,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./front-ecs-task-def.json
+          task-definition: $(pwd)/front-ecs-task-def.json
           container-name: prum_person_portfolio_front
           image: ${{ steps.build-image.outputs.image }}
 
