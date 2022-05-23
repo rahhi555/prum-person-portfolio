@@ -69,6 +69,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: prum_person_portfolio_front
+          service: prum_person_portfolio_service_front
           cluster: prum_person_portfolio
           wait-for-service-stability: true
