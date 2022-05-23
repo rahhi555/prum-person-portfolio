@@ -2,6 +2,7 @@ on:
   pull_request:
     paths:
       - 'front/**'
+      - '.github/workflows/front-deploy.yaml'
     branches:
       - master
     types: [closed]
@@ -51,11 +52,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
+      - name: check
+        run: |
+          pwd
+          ls
+
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./front-ecs-task-def.json
+          task-definition: front-ecs-task-def.json
           container-name: prum_person_portfolio_front
           image: ${{ steps.build-image.outputs.image }}
 

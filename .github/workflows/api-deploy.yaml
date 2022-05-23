@@ -2,6 +2,7 @@ on:
   pull_request:
     paths:
       - 'api/**'
+      - '.github/workflows/api-deploy.yaml'
     branches:
       - master
     types: [closed]
@@ -44,11 +45,16 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
 
+      - name: check
+        run: |
+          pwd
+          ls
+
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./api-ecs-task-def.json
+          task-definition: api-ecs-task-def.json
           container-name: prum_person_portfolio_api
           image: ${{ steps.build-image.outputs.image }}      
 
