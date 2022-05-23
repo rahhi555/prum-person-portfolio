@@ -2,6 +2,7 @@ on:
   pull_request:
     paths:
       - 'front/**'
+      - '.github/workflows/front-deploy.yaml'
     branches:
       - master
     types: [closed]
