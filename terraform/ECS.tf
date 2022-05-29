@@ -90,7 +90,7 @@ resource "aws_ecs_cluster" "prum_person_portfolio" {
 resource "aws_ecs_task_definition" "prum_person_portfolio_front" {
   family = "prum_person_portfolio_front"
   cpu = "256"
-  memory = "512"
+  memory = "1024"
   network_mode = "awsvpc"
   requires_compatibilities = [ "FARGATE" ]
   # ECS ExecをするためのIAMロール

@@ -97,7 +97,7 @@ resource "aws_lb_listener" "redirect_http_to_https" {
 
 # ターゲットグループ
 resource "aws_lb_target_group" "prum_person_portfolio" {
-  name = "prum-person-portfolio"
+  name = "prum-person-portfolio-front"
   target_type = "ip"
   vpc_id = aws_vpc.prum_person_portfolio.id
   port = 80
