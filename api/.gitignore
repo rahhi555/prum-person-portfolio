@@ -29,3 +29,4 @@
 /config/master.key
 
 .gem_rbs_collection
+.cache
