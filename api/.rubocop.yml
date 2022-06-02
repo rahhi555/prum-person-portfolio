@@ -57,3 +57,6 @@ Rails/HelperInstanceVariable:
 
 Rails/SkipsModelValidations:
   Enabled: false
+
+GraphQL/OrderedFields:
+  Enabled: false
