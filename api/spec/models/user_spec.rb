@@ -16,14 +16,16 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # validate_uniqueness_ofは事前にデータが1件も存在しないと失敗するため、あらかじめuserを作成する
-  let!(:user) { create(:user) }
-  let(:build_user) { build(:user) }
+  let(:user) { build(:user) }
 
   context 'メールアドレス' do
     it { is_expected.to validate_presence_of :email }
     it { is_expected.to(validate_length_of(:email).is_at_most(255)) }
-    it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+
+    it do
+      create(:user)
+      expect(subject).to validate_uniqueness_of(:email).case_insensitive
+    end
 
     it 'フォーマットが正しい場合、検証に成功すること' do
       valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
@@ -45,9 +47,9 @@ RSpec.describe User, type: :model do
 
     it '保存前に小文字になること' do
       mixed_case_email = 'Foo@ExAMPle.CoM'
-      build_user.email = mixed_case_email
-      build_user.save
-      expect(build_user.reload.email).to eq mixed_case_email.downcase
+      user.email = mixed_case_email
+      user.save
+      expect(user.reload.email).to eq mixed_case_email.downcase
     end
   end
 
@@ -55,5 +57,23 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :password }
     it { is_expected.to validate_length_of(:password).is_at_least(6) }
     it { is_expected.to have_secure_password }
+  end
+
+  describe 'Userモデルに定義されたメソッド' do
+    context 'create_jwt_token' do
+      let(:user) { create(:user) }
+      let(:encoded_token) { user.create_jwt_token }
+
+      it '戻り値をデコードした場合、user_idを取得できること' do
+        decoded_token = JWT.decode encoded_token, Rails.application.credentials.secret_key_base
+        expect(decoded_token).to include('user_id' => user.id)
+      end
+
+      it 'secret_key_base以外ではデコードできないこと' do
+        expect do
+          JWT.decode encoded_token, ''
+        end.to raise_error(JWT::VerificationError)
+      end
+    end
   end
 end

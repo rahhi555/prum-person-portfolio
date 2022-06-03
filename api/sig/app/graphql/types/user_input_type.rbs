@@ -1,4 +1,0 @@
-module Types
-  class UserInputType < Types::BaseInputObject
-  end
-end

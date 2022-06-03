@@ -24,4 +24,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
 
   has_secure_password
+
+  def create_jwt_token
+    JWT.encode({ user_id: id }, Rails.application.credentials.secret_key_base)
+  end
 end

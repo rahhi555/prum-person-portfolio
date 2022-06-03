@@ -6,10 +6,10 @@ module Mutations
 
     field :user, Types::UserType, null: false, description: 'ユーザー'
 
-    argument :user_input, Types::UserInputType, required: true, description: 'メールアドレス及びパスワード'
+    argument :auth_input, Types::AuthInputType, required: true, description: 'メールアドレス及びパスワード'
 
-    def resolve(user_input:)
-      user = ::User.new(**user_input)
+    def resolve(auth_input:)
+      user = ::User.new(**auth_input)
       raise GraphQL::ExecutionError.new 'ユーザー作成に失敗しました', extensions: user.errors.to_hash unless user.save
 
       { user: }
