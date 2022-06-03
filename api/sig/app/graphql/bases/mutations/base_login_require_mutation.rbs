@@ -1,0 +1,5 @@
+module Mutations
+  class BaseLoginRequireMutation < BaseMutation
+    def authorized?: (Hash[Symbol, untyped] _) -> (true | GraphQL::ExecutionError)
+  end
+end

@@ -1,0 +1,7 @@
+module Types
+  class AuthInputType < Types::BaseInputObject
+    type hash = { email: String, password: String }
+    @ruby_style_hash: hash
+    def to_hash: () -> hash
+  end
+end

@@ -1,17 +1,24 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
+    description 'クエリ'
+
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :users, [UserType], description: '全ユーザー'
+    field :current_user, UserType, description: 'ログイン中のユーザー'
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-                               description: 'An example field added by the generator'
-    def test_field
-      'Hello World!'
+    def users = User.all
+
+    def current_user
+      require_authorized
+      context[:current_user]
+    end
+
+    private
+
+    def require_authorized
+      raise GraphQL::ExecutionError, I18n.t('graphql.errors.messages.not_login') if context[:current_user].blank?
     end
   end
 end

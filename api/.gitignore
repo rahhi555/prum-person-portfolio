@@ -29,3 +29,8 @@
 /config/master.key
 
 .gem_rbs_collection
+.cache
+
+/coverage
+.ash_history
+.irb_history

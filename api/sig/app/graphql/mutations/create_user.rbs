@@ -1,0 +1,5 @@
+module Mutations
+  class CreateUser < BaseMutation
+    def resolve: (auth_input: Types::AuthInputType) -> { user: User }
+  end
+end

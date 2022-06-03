@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+    attributes:
+      user:
+        email: 'メールアドレス'
+        password: 'パスワード'
+  graphql:
+    errors:
+      messages:
+        failed_auth: 'ログインに失敗しました'
+        not_login: 'ログインしていません'
