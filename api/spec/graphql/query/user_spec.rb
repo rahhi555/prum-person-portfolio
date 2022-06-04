@@ -43,8 +43,8 @@ RSpec.describe 'User関連Query', type: :request do
     end
 
     it 'ヘッダーにBearerトークンが存在しない場合、エラーが返ってくること' do
-      expect_not_login(query)
+      post graphql_path, params: { query: }
+      expect_not_login
     end
   end
 end
-

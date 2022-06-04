@@ -7,6 +7,6 @@ Rails.application.configure do
     Rails::Rack::Logger,
     Silencer::Logger,
     config.log_tags,
-    silence: ['/health_check']
+    silence: ['/health-check']
   )
 end
