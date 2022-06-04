@@ -7,8 +7,14 @@ module Types
 
     field :users, [UserType], description: '全ユーザー'
     field :current_user, UserType, description: 'ログイン中のユーザー'
+    field :categories, [CategoryType], description: '全カテゴリー'
 
     def users = User.all
+
+    def categories
+      require_authorized
+      Category.all
+    end
 
     def current_user
       require_authorized

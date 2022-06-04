@@ -9,6 +9,8 @@ module Types
 
     def current_user: () -> User
 
+    def categories: () -> Category::ActiveRecord_Relation
+
     private
 
     def require_authorized: () -> (true | GraphQL::ExecutionError)
