@@ -12,4 +12,5 @@
 #  index_categories_on_name  (name) UNIQUE
 #
 class Category < ApplicationRecord
+  validates :name, presence: true, length: { maximum: 255 }, uniqueness: true
 end

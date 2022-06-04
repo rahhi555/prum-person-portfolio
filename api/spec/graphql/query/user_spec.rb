@@ -47,4 +47,3 @@ RSpec.describe 'User関連Query', type: :request do
     end
   end
 end
-
