@@ -1,0 +1,4 @@
+module SupportMethods
+  def expect_not_login: () -> untyped
+  def parsed_data: () -> Hash[String, untyped]
+end

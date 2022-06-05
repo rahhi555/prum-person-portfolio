@@ -1,5 +1,5 @@
 module Mutations
   class CreateSkill < BaseLoginRequireMutation
-    def resolve: (skill_input: Types::SkillInputType) -> { skill: Skill }
+    def resolve: (category_id: Integer, name: String, level: Integer) -> { skill: Skill }
   end
 end

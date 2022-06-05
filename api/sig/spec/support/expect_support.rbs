@@ -1,3 +1,0 @@
-module ExpectSupport
-  def expect_not_login: (untyped query) -> untyped
-end

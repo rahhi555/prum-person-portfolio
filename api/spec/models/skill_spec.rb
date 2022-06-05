@@ -30,6 +30,7 @@ RSpec.describe Skill, type: :model do
   it { is_expected.to validate_length_of(:name).is_at_most(255) }
 
   it { is_expected.to validate_presence_of(:level) }
+  it { is_expected.to validate_numericality_of(:level).only_integer }
 
   it {
     is_expected.to validate_inclusion_of(:level)

@@ -1,4 +1,0 @@
-module Types
-  class SkillInputType < Types::BaseInputObject
-  end
-end

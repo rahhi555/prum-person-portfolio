@@ -66,9 +66,9 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Userモデルに定義されたメソッド' do
-    context 'create_jwt_token' do
+    context 'create_jwt' do
       let(:user) { create(:user) }
-      let(:encoded_token) { user.create_jwt_token }
+      let(:encoded_token) { user.create_jwt }
 
       it '戻り値をデコードした場合、user_idを取得できること' do
         decoded_token = JWT.decode encoded_token, Rails.application.credentials.secret_key_base

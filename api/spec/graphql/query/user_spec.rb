@@ -36,9 +36,9 @@ RSpec.describe 'User関連Query', type: :request do
     end
 
     it 'ヘッダーにBearerトークンが存在する場合、現在のユーザーを取得できること' do
-      token = user.create_jwt_token
+      token = user.create_jwt
       post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{token}" }
-      id = response.parsed_body['data']['currentUser']['id']
+      id = parsed_data['currentUser']['id']
       expect(id).to eq user.id.to_s
     end
 

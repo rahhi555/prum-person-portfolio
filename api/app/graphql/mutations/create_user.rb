@@ -10,7 +10,7 @@ module Mutations
 
     def resolve(auth_input:)
       user = ::User.new(**auth_input)
-      raise GraphQL::ExecutionError.new user.errors.full_messages, extensions: user.errors.to_hash unless user.save
+      raise GraphQL::ExecutionError, user.errors.full_messages unless user.save
 
       { user: }
     end

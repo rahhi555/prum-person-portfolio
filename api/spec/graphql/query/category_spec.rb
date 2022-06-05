@@ -16,9 +16,9 @@ RSpec.describe 'Category関連 Query', type: :request do
     end
 
     it 'ログイン済みの場合、カテゴリーが返ってくること' do
-      post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{user.create_jwt_token}" }
+      post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{user.create_jwt}" }
 
-      ids = response.parsed_body['data']['categories'].pluck('id')
+      ids = parsed_data['categories'].pluck('id')
       expect(ids).to eq categories.pluck(:id).map(&:to_s)
     end
 
