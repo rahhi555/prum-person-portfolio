@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_04_141655) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_05_030010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_04_141655) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーid"
+    t.bigint "category_id", null: false, comment: "カテゴリーid"
+    t.string "name", comment: "習得スキル名"
+    t.integer "level", comment: "習得レベル"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_skills_on_category_id"
+    t.index ["user_id"], name: "index_skills_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -30,4 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_04_141655) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "skills", "categories"
+  add_foreign_key "skills", "users"
 end
