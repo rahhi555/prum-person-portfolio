@@ -22,9 +22,9 @@
 #
 FactoryBot.define do
   factory :skill do
-    user { nil }
-    category { nil }
-    name { 'MyString' }
+    user
+    category
+    name { 'Ruby' }
     level { 1 }
   end
 end

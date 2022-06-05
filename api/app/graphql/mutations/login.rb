@@ -10,7 +10,7 @@ module Mutations
     def resolve(auth_input:)
       auth_input.to_hash => { email:, password: }
       user = User.find_by(email:)
-      raise GraphQL::ExecutionError, t('graphql.errors.messages.failed_auth') unless user&.authenticate(password)
+      raise GraphQL::ExecutionError, I18n.t('graphql.errors.messages.failed_auth') unless user&.authenticate(password)
 
       token = user.create_jwt_token
       { user:, token: }

@@ -24,8 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_030010) do
   create_table "skills", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーid"
     t.bigint "category_id", null: false, comment: "カテゴリーid"
-    t.string "name", comment: "習得スキル名"
-    t.integer "level", comment: "習得レベル"
+    t.string "name", null: false, comment: "習得スキル名"
+    t.integer "level", null: false, comment: "習得レベル"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_skills_on_category_id"

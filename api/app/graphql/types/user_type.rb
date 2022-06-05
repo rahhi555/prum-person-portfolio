@@ -2,6 +2,7 @@
 
 module Types
   class UserType < Types::BaseObject
+    description 'ユーザー'
     field :id, ID, null: false, description: '主キー'
     field :email, String, null: false, description: 'メールアドレス'
     field :profile, String, 'プロフィールの説明文'
