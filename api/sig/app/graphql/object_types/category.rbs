@@ -1,0 +1,5 @@
+module ObjectTypes
+  class Category < Types::BaseObject
+    def skills: () -> untyped
+  end
+end

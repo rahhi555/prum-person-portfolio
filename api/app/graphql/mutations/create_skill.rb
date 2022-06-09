@@ -4,7 +4,7 @@ module Mutations
   class CreateSkill < BaseLoginRequireMutation
     description 'ログイン中のユーザーのスキル作成'
 
-    field :skill, Types::SkillType, null: false, description: '作成したスキル'
+    field :skill, ObjectTypes::Skill, null: false, description: '作成したスキル'
 
     argument :category_id, ID, required: true, description: 'カテゴリーid'
     argument :level, Integer, required: true, description: '習得レベル'

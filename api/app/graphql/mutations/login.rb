@@ -2,7 +2,7 @@ module Mutations
   class Login < BaseMutation
     description 'ユーザーログイン関連'
 
-    field :user, Types::UserType, null: false, description: 'ログインに成功したユーザー'
+    field :user, ObjectTypes::User, null: false, description: 'ログインに成功したユーザー'
     field :jwt, String, null: false, description: 'ログインjwt'
 
     argument :auth_input, Types::AuthInputType, required: true, description: '認証に必要な項目'

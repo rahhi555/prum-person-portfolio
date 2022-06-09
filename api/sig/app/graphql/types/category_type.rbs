@@ -1,5 +1,0 @@
-module Types
-  class CategoryType < Types::BaseObject
-    def skills: () -> untyped
-  end
-end

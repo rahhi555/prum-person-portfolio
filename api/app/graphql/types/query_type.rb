@@ -5,8 +5,8 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :current_user, UserType, description: 'ログイン中のユーザー'
-    field :categories, [CategoryType], description: '全カテゴリー'
+    field :current_user, ObjectTypes::User, description: 'ログイン中のユーザー'
+    field :categories, [ObjectTypes::Category], description: '全カテゴリー'
 
     def current_user
       require_authorized

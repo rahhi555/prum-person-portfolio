@@ -4,7 +4,7 @@ module Mutations
   class UpdateSkill < BaseLoginRequireMutation
     description 'スキル更新'
 
-    field :skill, Types::SkillType, null: false, description: '更新後のスキル'
+    field :skill, ObjectTypes::Skill, null: false, description: '更新後のスキル'
 
     argument :id, ID, required: true, description: 'id'
     argument :level, Integer, required: true, description: '更新後のレベル'

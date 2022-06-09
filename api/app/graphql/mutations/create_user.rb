@@ -4,7 +4,7 @@ module Mutations
   class CreateUser < BaseMutation
     description '新規ユーザー作成'
 
-    field :user, Types::UserType, null: false, description: 'ユーザー'
+    field :user, ObjectTypes::User, null: false, description: 'ユーザー'
 
     argument :auth_input, Types::AuthInputType, required: true, description: 'メールアドレス及びパスワード'
 
