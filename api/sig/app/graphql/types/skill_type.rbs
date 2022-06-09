@@ -1,4 +1,7 @@
 module Types
   class SkillType < Types::BaseObject
+    def user: () -> (User|nil)
+    def category: () -> (Category|nil)
+    def dataloader: () -> GraphQL::Dataloader
   end
 end

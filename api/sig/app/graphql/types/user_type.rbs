@@ -1,4 +1,5 @@
 module Types
   class UserType < Types::BaseObject
+    def skills: () -> untyped
   end
 end
