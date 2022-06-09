@@ -42,7 +42,7 @@ RSpec.describe 'Category関連 Query', type: :request do
           category['id'] == category_own_skills.id.to_s
         end
 
-        ids = res_category_own_skills['skills'].pluck("id")
+        ids = res_category_own_skills['skills'].pluck('id')
         expect(ids).to eq skills.pluck(:id).map(&:to_s)
 
         user_ids = res_category_own_skills['skills'].map { |skill| skill['user']['id'] }
