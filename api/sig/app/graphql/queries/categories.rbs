@@ -1,0 +1,5 @@
+module Queries
+  class Categories < Queries::BaseQuery
+    def resolve: () -> Category::ActiveRecord_Relation
+  end
+end

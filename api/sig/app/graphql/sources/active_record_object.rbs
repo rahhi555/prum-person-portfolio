@@ -1,0 +1,7 @@
+module Sources
+  class ActiveRecordObject < GraphQL::Dataloader::Source
+    @model_class: GraphQL::Dataloader::some_model
+    def initialize: (GraphQL::Dataloader::some_model model_class) -> void
+    def fetch: (Array[Integer]) -> Array[User|Category|nil]
+  end
+end

@@ -1,0 +1,5 @@
+module Queries
+  class CurrentUser < Queries::BaseQuery
+    def resolve: () -> untyped
+  end
+end

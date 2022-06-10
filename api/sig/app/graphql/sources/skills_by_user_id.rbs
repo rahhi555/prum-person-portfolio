@@ -1,0 +1,6 @@
+module Sources
+  class SkillsByUserId < GraphQL::Dataloader::Source
+    @model_class: ::Skill
+    def fetch: (Array[Integer] ids) -> untyped
+  end
+end

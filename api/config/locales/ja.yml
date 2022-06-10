@@ -2,10 +2,20 @@ ja:
   activerecord:
     models:
       user: 'ユーザー'
+      category: 'カテゴリー'
+      skill: 'スキル'
     attributes:
       user:
         email: 'メールアドレス'
         password: 'パスワード'
+      category:
+        name: 'カテゴリー名'
+      skill:
+        name: '習得スキル名'
+        level: '習得レベル'
+    errors:
+      messages:
+        in: 'は%{count}の値にしてください'
   graphql:
     errors:
       messages:

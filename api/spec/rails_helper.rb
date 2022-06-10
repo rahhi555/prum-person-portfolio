@@ -65,7 +65,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  config.include ExpectSupport
+  config.include SupportMethods
 end
 
 Shoulda::Matchers.configure do |config|

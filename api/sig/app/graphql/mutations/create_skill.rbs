@@ -1,0 +1,5 @@
+module Mutations
+  class CreateSkill < BaseLoginRequireMutation
+    def resolve: (untyped) -> { skill: Skill }
+  end
+end

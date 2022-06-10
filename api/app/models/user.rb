@@ -14,6 +14,8 @@
 #  index_users_on_email  (email) UNIQUE
 #
 class User < ApplicationRecord
+  has_many :skills, dependent: :destroy
+
   before_save { email.downcase! }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -25,7 +27,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  def create_jwt_token
+  def create_jwt
     JWT.encode({ user_id: id }, Rails.application.credentials.secret_key_base)
   end
 end

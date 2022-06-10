@@ -23,7 +23,7 @@ RSpec.describe 'User関連のMutation', type: :request do
       expect do
         post graphql_path, params: { query: }
       end.to change(User, :count).by(1)
-      user = response.parsed_body['data']['createUser']['user']
+      user = parsed_data['createUser']['user']
       expect(user['email']).to eq new_user.email
     end
   end
@@ -43,15 +43,15 @@ RSpec.describe 'User関連のMutation', type: :request do
             user {
               id
             }
-            token
+            jwt
           }
         }
       QUERY
 
       post graphql_path, params: { query: }
-      id = response.parsed_body['data']['login']['user']['id']
-      token = response.parsed_body['data']['login']['token']
-      decoded_token = JWT.decode token, Rails.application.credentials.secret_key_base
+      id = parsed_data['login']['user']['id']
+      jwt = parsed_data['login']['jwt']
+      decoded_token = JWT.decode jwt, Rails.application.credentials.secret_key_base
 
       expect(id).to eq user.id.to_s
       expect(decoded_token).to include('user_id' => user.id)

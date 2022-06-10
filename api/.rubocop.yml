@@ -52,6 +52,15 @@ RSpec/ExampleLength:
 RSpec/ContextWording:
   Enabled: false
 
+RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
 Rails/HelperInstanceVariable:
   Enabled: false
 

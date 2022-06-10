@@ -1,0 +1,4 @@
+module InputTypes
+  class CreateSkill < Types::BaseInputObject
+  end
+end

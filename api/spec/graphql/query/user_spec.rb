@@ -1,50 +1,58 @@
 require 'rails_helper'
 
 RSpec.describe 'User関連Query', type: :request do
-  describe 'users Query' do
-    let!(:users) { create_list(:user, 3) }
-
-    it '全ユーザーが取得できること' do
-      query = <<~QUERY
-        {
-          users {
-            id
-            email
-            profile
-            createdAt
-            updatedAt
-          }
-         }
-      QUERY
-
-      post graphql_path, params: { query: }
-      json = response.parsed_body
-      expect(json['data']['users'].length).to eq users.length
-    end
-  end
-
   describe 'current_user Query', type: :request do
     let(:user) { create(:user) }
+    let!(:skills) { create_list(:skill, 3, user:) }
     let(:query) do
       <<~QUERY
         {
           currentUser {
             id
+            email
+            profile
+            skills {
+              id
+              category {
+                id
+              }
+            }
           }
         }
       QUERY
     end
 
-    it 'ヘッダーにBearerトークンが存在する場合、現在のユーザーを取得できること' do
-      token = user.create_jwt_token
-      post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{token}" }
-      id = response.parsed_body['data']['currentUser']['id']
-      expect(id).to eq user.id.to_s
+    context 'ヘッダーにBearerトークンが存在する場合' do
+      let(:auth_header) do
+        { Authorization: "Bearer #{user.create_jwt}" }
+      end
+
+      it '現在のユーザーを取得できること' do
+        post graphql_path, params: { query: }, headers: auth_header
+        id = parsed_data['currentUser']['id']
+        email = parsed_data['currentUser']['email']
+        profile = parsed_data['currentUser']['profile']
+        expect(id).to eq user.id.to_s
+        expect(email).to eq user.email
+        expect(profile).to eq user.profile
+      end
+
+      it 'ユーザーが保有しているスキル一覧及びカテゴリを取得できること' do
+        post graphql_path, params: { query: }, headers: auth_header
+
+        res_skills = parsed_data['currentUser']['skills']
+        expect(res_skills.pluck('id')).to eq skills.pluck(:id).map(&:to_s)
+
+        categories = res_skills.pluck('category')
+        expect(categories.pluck('id')).to eq skills.pluck(:category_id).map(&:to_s)
+      end
     end
 
-    it 'ヘッダーにBearerトークンが存在しない場合、エラーが返ってくること' do
-      post graphql_path, params: { query: }
-      expect_not_login
+    context 'ヘッダーにBearerトークンが存在しない場合' do
+      it 'エラーが返ってくること' do
+        post graphql_path, params: { query: }
+        expect_not_login
+      end
     end
   end
 end

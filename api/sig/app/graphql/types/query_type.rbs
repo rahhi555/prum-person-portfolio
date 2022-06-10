@@ -5,14 +5,8 @@ module Types
 
     include GraphQL::Types::Relay::HasNodesField
 
-    def users: () -> User::ActiveRecord_Relation
-
-    def current_user: () -> User
-
-    def categories: () -> Category::ActiveRecord_Relation
-
     private
 
-    def require_authorized: () -> (true | GraphQL::ExecutionError)
+    def require_authorized: () -> (GraphQL::ExecutionError | nil)
   end
 end
