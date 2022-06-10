@@ -1,5 +1,5 @@
 module Mutations
   class UpdateSkill < BaseMutation
-    def resolve: (id: Integer, level: Integer) -> { skill: Skill }
+    def resolve: (InputTypes::UpdateSkill) -> { skill: Skill }
   end
 end

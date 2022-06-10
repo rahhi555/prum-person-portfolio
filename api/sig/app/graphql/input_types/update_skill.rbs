@@ -1,0 +1,4 @@
+module InputTypes
+  class UpdateSkill < Types::BaseInputObject
+  end
+end

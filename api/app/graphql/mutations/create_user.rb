@@ -6,7 +6,7 @@ module Mutations
 
     field :user, ObjectTypes::User, null: false, description: 'ユーザー'
 
-    argument :auth_input, Types::AuthInputType, required: true, description: 'メールアドレス及びパスワード'
+    argument :auth_input, InputTypes::Auth, required: true, description: 'メールアドレス及びパスワード'
 
     def resolve(auth_input:)
       user = ::User.new(**auth_input)

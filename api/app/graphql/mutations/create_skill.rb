@@ -6,13 +6,11 @@ module Mutations
 
     field :skill, ObjectTypes::Skill, null: false, description: '作成したスキル'
 
-    argument :category_id, ID, required: true, description: 'カテゴリーid'
-    argument :level, Integer, required: true, description: '習得レベル'
-    argument :name, String, required: true, description: '習得スキル名'
+    argument :create_skill_input, InputTypes::CreateSkill, required: true, description: 'スキル作成に必要な項目'
 
-    def resolve(category_id:, name:, level:)
+    def resolve(create_skill_input:)
       current_user = context[:current_user]
-      skill = current_user.skills.build(category_id:, name:, level:)
+      skill = current_user.skills.build(**create_skill_input)
       raise GraphQL::ExecutionError, skill.errors.full_messages unless skill.save
 
       { skill: }

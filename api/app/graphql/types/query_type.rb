@@ -7,6 +7,5 @@ module Types
 
     field :current_user, resolver: Queries::CurrentUser, description: 'ログイン中のユーザー'
     field :categories, resolver: Queries::Categories, description: '全カテゴリー'
-
   end
 end

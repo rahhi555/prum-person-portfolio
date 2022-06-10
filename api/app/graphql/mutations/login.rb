@@ -5,7 +5,7 @@ module Mutations
     field :user, ObjectTypes::User, null: false, description: 'ログインに成功したユーザー'
     field :jwt, String, null: false, description: 'ログインjwt'
 
-    argument :auth_input, Types::AuthInputType, required: true, description: '認証に必要な項目'
+    argument :auth_input, InputTypes::Auth, required: true, description: '認証に必要な項目'
 
     def resolve(auth_input:)
       auth_input.to_hash => { email:, password: }

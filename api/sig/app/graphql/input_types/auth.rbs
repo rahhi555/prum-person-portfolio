@@ -1,0 +1,4 @@
+module InputTypes
+  class Auth < Types::BaseInputObject
+  end
+end

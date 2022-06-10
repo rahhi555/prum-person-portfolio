@@ -8,9 +8,11 @@ RSpec.describe 'Skill関連のMutation', type: :request do
       <<~QUERY
         mutation {
           createSkill(input: {
-            categoryId: #{category.id}
-            level: 1
-            name: "Ruby"
+            createSkillInput: {
+              categoryId: #{category.id}
+              level: 1
+              name: "Ruby"
+            }
           }) {
             skill {
               id
@@ -43,8 +45,10 @@ RSpec.describe 'Skill関連のMutation', type: :request do
       <<~QUERY
         mutation {
           updateSkill(input: {
-            id: #{skill.id}
-            level: #{skill.level + 1}
+            updateSkillInput: {
+              id: #{skill.id}
+              level: #{skill.level + 1}
+            }
           }) {
             skill {
               id

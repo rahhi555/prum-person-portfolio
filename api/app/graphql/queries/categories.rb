@@ -1,10 +1,8 @@
 module Queries
-  class Categories < Queries::BaseQuery
-
+  class Categories < Queries::BaseLoginRequireQuery
     type [ObjectTypes::Category], null: true
 
     def resolve
-      require_authorized
       Category.all
     end
   end
