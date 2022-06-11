@@ -2,9 +2,14 @@
   "private": true,
   "scripts": {
     "dev": "HOST='0.0.0.0' PORT=80 nuxt dev",
-    "start": "nuxt build && HOST='0.0.0.0' PORT=80 nuxt preview"
+    "start": "nuxt build && HOST='0.0.0.0' PORT=80 nuxt preview",
+    "storybook": "start-storybook"
   },
   "devDependencies": {
+    "@mdx-js/react": "^2.1.1",
+    "@storybook/addon-essentials": "^6.5.8",
+    "@storybook/builder-vite": "^0.1.36",
+    "@storybook/vue3": "^6.5.8",
     "nuxt": "3.0.0-rc.3"
   }
 }
