@@ -18,7 +18,7 @@ const Template: Story = (args) => ({
 
 export const Primary = Template.bind({})
 Primary.args = {
-  isLoggedin: false
+  loginBtnText: "ログアウト"
 }
 Primary.parameters = {
   design: {

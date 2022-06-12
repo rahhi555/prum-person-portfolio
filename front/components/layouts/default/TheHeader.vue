@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-const isLoggedin = ref(false)
-const loginBtnText = computed(() => isLoggedin.value ? "ログアウト" : "ログイン")
 </script>
 
 <template>
-  <div class="header">
-    <p class="header-title">My Portfolio</p>
+  <header class="header">
+    <NuxtLink class="header-title" to="/top">My Portfolio</NuxtLink>
     <button class="login-btn">
-      <span class="login-btn-font" v-text="loginBtnText"></span>
+      <NuxtLink class="login-btn-font" to="/login">
+        ログイン
+      </NuxtLink>
     </button>
-  </div>  
+  </header>  
 </template>
 
 <style scoped>
@@ -20,12 +20,7 @@ const loginBtnText = computed(() => isLoggedin.value ? "ログアウト" : "ロ�
   align-items: center;
   padding: 0px 40px;
   gap: 10px;
-
-  position: absolute;
-  width: 1440px;
   height: 120px;
-  left: 0px;
-  top: 0px;
 
   background-color: var(--primary-color);
 }
@@ -34,16 +29,11 @@ const loginBtnText = computed(() => isLoggedin.value ? "ログアウト" : "ロ�
 width: 201px;
 height: 42px;
 
-font-style: normal;
 font-weight: 700;
 font-size: 36px;
 line-height: 42px;
 
 color: #FFFFFF;
-
-flex: none;
-order: 0;
-flex-grow: 0;
 }
 
 .login-btn {
@@ -58,26 +48,15 @@ flex-grow: 0;
 
   background: #FFFFFF;
   border-radius: 4px;
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
 .login-btn-font {
-  width: 72px;
+width: 72px;
 height: 21px;
 
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
 font-size: 18px;
 line-height: 21px;
 
 color: rgba(0, 0, 0, 0.75);
-
-flex: none;
-order: 0;
-flex-grow: 0;
 }
 </style>

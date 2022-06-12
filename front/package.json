@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "HOST='0.0.0.0' PORT=80 nuxt dev",
     "start": "nuxt build && HOST='0.0.0.0' PORT=80 nuxt preview",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook -p 6006"
   },
   "devDependencies": {
     "@mdx-js/react": "^2.1.1",

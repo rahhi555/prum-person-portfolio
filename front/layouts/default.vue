@@ -1,12 +1,22 @@
-<script lang="ts" setup>
-import TheHeader from '~~/components/layouts/default/TheHeader.vue';</script>
-
 <template>
-  <div>
-    <TheHeader />
-    Layout: default
-    <slot />
+  <div class="default-wrapper">
+    <LayoutsDefaultTheHeader />
+    <main class="default-container">
+      <slot />
+    </main>
+    <LayoutsDefaultTheFooter />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.default-wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.default-container {
+  margin: 0 3%;
+}
+</style>
