@@ -9,6 +9,6 @@ WORKDIR ${HOME}
 
 COPY . .
 
-RUN apk update && npm install
+RUN apk update && npm ci
 
 EXPOSE 80
