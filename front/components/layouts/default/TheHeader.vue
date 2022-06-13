@@ -3,12 +3,10 @@
 
 <template>
   <header class="header">
-    <NuxtLink class="header-title" to="/top">My Portfolio</NuxtLink>
-    <button class="login-btn">
-      <NuxtLink class="login-btn-font" to="/login">
-        ログイン
-      </NuxtLink>
-    </button>
+    <NuxtLink class="header-title" to="/">My Portfolio</NuxtLink>
+    <NuxtLink class="login-btn" to="/login">
+      <span class="login-btn-font">ログイン</span>
+    </NuxtLink>
   </header>  
 </template>
 
