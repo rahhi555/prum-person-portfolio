@@ -10,5 +10,13 @@ export default defineNuxtConfig({
         { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" },
       ],
     }
+  },
+
+  modules: ['nuxt-graphql-client'],
+
+  runtimeConfig: {
+    public: {
+      GQL_HOST: 'http://prum-api:3000/graphql'
+    }
   }
 })

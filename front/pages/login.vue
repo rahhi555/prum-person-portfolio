@@ -1,11 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const user = reactive({
+  email: "",
+  password: ""
+})
+
+const result = await useAsyncData('currentUser', () => GqlCurrentUser())
+</script>
 
 <template> 
   <div class="login-wrapper">
     <h1 class="login-h1">ログイン</h1>
     <form class="login-form">
-      <CommonInput :id="'email'" :type="'email'" :label="'メールアドレス'" />
-      <CommonInput :id="'password'" :type="'password'" :label="'パスワード'" />
+      <CommonInput :id="'email'" :type="'email'" :label="'メールアドレス'" v-model="user.email"/>
+      <CommonInput :id="'password'" :type="'password'" :label="'パスワード'" v-model="user.password" />
       <CommonButton :color="'primary'" :text="'ログインする'" /> 
     </form>
   </div>

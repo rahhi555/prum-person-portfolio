@@ -10,7 +10,10 @@
     "@storybook/addon-essentials": "^6.5.8",
     "@storybook/builder-vite": "^0.1.36",
     "@storybook/vue3": "^6.5.8",
-    "nuxt": "3.0.0-rc.3",
+    "nuxt": "^3.0.0-rc.4",
     "storybook-addon-designs": "^6.2.1"
+  },
+  "dependencies": {
+    "nuxt-graphql-client": "^0.0.32"
   }
 }
