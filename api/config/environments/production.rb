@@ -43,6 +43,7 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # ヘルスチェックのみ、httpsリダイレクトを実行しない
   config.ssl_options = { redirect: { exclude: ->(request) { /health-check/.match?(request.path) } } }
 
   # Include generic and useful information about system operation, but avoid logging too much
@@ -89,4 +90,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.hosts << 'www.hirabayashi.work'
+  # ヘルスチェックを成功させるため、同VPCのIPv4 CIDRを通すようにする
+  config.hosts << IPAddr.new('10.0.0.0/16')
 end

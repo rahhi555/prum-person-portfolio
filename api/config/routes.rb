@@ -2,5 +2,5 @@
 
 Rails.application.routes.draw do
   post '/graphql', to: 'graphql#execute'
-  get 'health-check', to: 'health_check#index'
+  get '/health-check', to: 'health_check#index'
 end
