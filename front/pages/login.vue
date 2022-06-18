@@ -1,12 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const user = reactive({
+  email: "",
+  password: ""
+})
+
+const { login, currentUser } = useCurrentUser()
+</script>
 
 <template> 
   <div class="login-wrapper">
     <h1 class="login-h1">ログイン</h1>
     <form class="login-form">
-      <CommonInput :id="'email'" :type="'email'" :label="'メールアドレス'" />
-      <CommonInput :id="'password'" :type="'password'" :label="'パスワード'" />
-      <CommonButton :color="'primary'" :text="'ログインする'" /> 
+      <CommonInput :id="'email'" :type="'email'" :label="'メールアドレス'" v-model="user.email"/>
+      <CommonInput :id="'password'" :type="'password'" :label="'パスワード'" v-model="user.password" />
+      <CommonButton :color="'primary'" :type="'submit'" :text="'ログインする'" @click.prevent="login(user)" /> 
     </form>
   </div>
 </template>
