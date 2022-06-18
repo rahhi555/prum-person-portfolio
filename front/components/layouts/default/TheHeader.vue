@@ -1,11 +1,15 @@
 <script lang="ts" setup>
+const { currentUser, logout } = useCurrentUser()
 </script>
 
 <template>
   <header class="header">
     <NuxtLink class="header-title" to="/">My Portfolio</NuxtLink>
-    <NuxtLink class="login-btn" to="/login">
-      <span class="login-btn-font">ログイン</span>
+    <button v-if="currentUser" class="login-btn" @click="logout">
+      <span  class="login-btn-font">ログアウト</span>
+    </button>
+    <NuxtLink v-else="currentUser" class="login-btn" to="/login">
+      <span  class="login-btn-font">ログイン</span>
     </NuxtLink>
   </header>  
 </template>

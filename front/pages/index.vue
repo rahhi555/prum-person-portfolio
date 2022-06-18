@@ -1,13 +1,8 @@
-<script lang="ts" setup>
-definePageMeta({
-  layout: "default"
-})
-</script>
-
 <template>
   <div>
     Page: foo
+    <NuxtLink to="/users/1/edit" >
+      hoge
+    </NuxtLink>
   </div>
 </template>
-
-<style scoped></style>

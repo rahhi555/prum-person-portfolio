@@ -1,10 +1,14 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'not-auth'
+})
+
 const user = reactive({
   email: "",
   password: ""
 })
 
-const { login, currentUser } = useCurrentUser()
+const { login } = useCurrentUser()
 </script>
 
 <template> 

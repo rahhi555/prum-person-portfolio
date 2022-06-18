@@ -1,3 +1,10 @@
+<script setup lang="ts">
+onServerPrefetch(async () => {
+  const { ssrUserInit } = useCurrentUser()
+  await ssrUserInit()
+})
+</script>
+
 <template>
   <CommonAlert />
   <NuxtLayout>
