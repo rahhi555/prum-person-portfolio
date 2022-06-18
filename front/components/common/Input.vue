@@ -37,5 +37,6 @@ const vModelValue = computed({
 
 .input-form > input {
   border-bottom: solid 1px;
+  height: 2rem;
 }
 </style>

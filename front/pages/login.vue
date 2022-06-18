@@ -4,7 +4,7 @@ const user = reactive({
   password: ""
 })
 
-const result = await useAsyncData('currentUser', () => GqlCurrentUser())
+const { login, currentUser } = useCurrentUser()
 </script>
 
 <template> 
@@ -13,7 +13,7 @@ const result = await useAsyncData('currentUser', () => GqlCurrentUser())
     <form class="login-form">
       <CommonInput :id="'email'" :type="'email'" :label="'メールアドレス'" v-model="user.email"/>
       <CommonInput :id="'password'" :type="'password'" :label="'パスワード'" v-model="user.password" />
-      <CommonButton :color="'primary'" :text="'ログインする'" /> 
+      <CommonButton :color="'primary'" :type="'submit'" :text="'ログインする'" @click.prevent="login(user)" /> 
     </form>
   </div>
 </template>

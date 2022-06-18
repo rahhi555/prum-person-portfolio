@@ -3,7 +3,7 @@
     <LayoutsDefaultTheHeader />
     <main class="default-container">
       <slot />
-    </main>
+    </main> 
     <LayoutsDefaultTheFooter />
   </div>
 </template>

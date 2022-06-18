@@ -1,6 +1,8 @@
 :root {
   --primary-color: #1B5678;
   --secondary-color: #EE6969;
+  --success-color: #2ecc71;
+  --danger-color: #e74c34;
 }
 
 body {
