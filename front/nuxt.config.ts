@@ -21,8 +21,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      GQL_HOST: 'http://prum-api:3000/graphql',
-      GQL_CLIENT_HOST: 'http://localhost:3000/graphql',
+      GQL_HOST: process.env.NODE_ENV == 'production' ? 'https://www.hirabayashi.work:3000/graphql' : 'http://prum-api:3000/graphql', 
+      GQL_CLIENT_HOST: process.env.NODE_ENV == 'production' ? 'https://www.hirabayashi.work:3000/graphql': 'http://localhost:3000/graphql',
     },
   },
 })
