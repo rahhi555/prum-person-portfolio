@@ -5,6 +5,7 @@ const JWT_COOKIE_NAME = "prum_person_portfolio_jwt";
 
 export const useCurrentUser = () => {
   const currentUser = useState<CurrentUserQuery["currentUser"] | null>("current_user");
+  const jwt = useState<string | null>("json_web_token");
 
   const login = async ({ email, password }: Auth) => {
     const { showAlert } = useAlert();
@@ -14,9 +15,12 @@ export const useCurrentUser = () => {
       if (login == null) throw new Error();
 
       currentUser.value = login.user;
+      jwt.value = login.jwt
 
       const cookies = useCookie(JWT_COOKIE_NAME, { path: '/' });
       cookies.value = login.jwt;
+
+      useGqlToken(jwt.value)
 
       navigateTo(`/users/${login.user.id}/edit`);
       showAlert({ message: "ログインしました", color: "var(--success-color)" });
@@ -33,14 +37,15 @@ export const useCurrentUser = () => {
     const { cookie } = useRequestHeaders(['cookie']);
 
     // キーバリューが = で繋がったjwt文字列
-    const jwtKeyValue = cookie.split('; ').find(keyValue => keyValue.includes(JWT_COOKIE_NAME))
+    let cookieJwt = cookie.split('; ').find(keyValue => keyValue.includes(JWT_COOKIE_NAME))
 
     // = から左の全文字を削除し、jwtのみ抜き出す
-    const jwt = jwtKeyValue?.replace(`${JWT_COOKIE_NAME}=`, "")
+    cookieJwt = cookieJwt?.replace(`${JWT_COOKIE_NAME}=`, "")
 
-    if (!jwt) return;
+    if (!cookieJwt) return;
 
-    useGqlToken(jwt);
+    jwt.value = cookieJwt
+    useGqlToken(cookieJwt);
 
     try {
       const res = (await GqlCurrentUser()) as CurrentUserQuery;
@@ -55,6 +60,10 @@ export const useCurrentUser = () => {
 
   const logout = () => {
     currentUser.value = null
+    jwt.value = null
+
+    useGqlToken('')
+
     const cookie = useCookie(JWT_COOKIE_NAME, { path: '/' })
     cookie.value = ''
     navigateTo('/')
@@ -64,6 +73,7 @@ export const useCurrentUser = () => {
 
   return {
     currentUser: readonly(currentUser),
+    jwt: readonly(jwt),
     login,
     ssrUserInit,
     logout
