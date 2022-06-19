@@ -45,9 +45,9 @@ export const useCurrentUser = () => {
   const ssrUserInit = async () => {
     // リクエストヘッダーからクッキー全体を取り出す
     const { cookie } = useRequestHeaders(["cookie"]);
-
+    
     // キーバリューが = で繋がったjwt文字列
-    let cookieJwt = cookie.split("; ").find((keyValue) => keyValue.includes(JWT_COOKIE_NAME));
+    let cookieJwt = cookie?.split("; ")?.find((keyValue) => keyValue.includes(JWT_COOKIE_NAME));
 
     // = から左の全文字を削除し、jwtのみ抜き出す
     cookieJwt = cookieJwt?.replace(`${JWT_COOKIE_NAME}=`, "");
