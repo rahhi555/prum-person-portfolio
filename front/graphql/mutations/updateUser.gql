@@ -1,0 +1,13 @@
+mutation updateUser($profile: String!) {
+  updateUser(input: {
+    updateUserInput: {
+      profile: $profile
+    }
+  }) {
+    user {
+      id
+      email
+      profile
+    }
+  }
+}

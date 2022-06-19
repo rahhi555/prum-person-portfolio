@@ -1,0 +1,5 @@
+module InputTypes
+  class UpdateUser < Types::BaseInputObject
+    type ruby_style_hash = { profile: String }
+  end
+end

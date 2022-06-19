@@ -4,6 +4,6 @@ module SupportMethods
   end
 
   def parsed_data
-    response.parsed_body['data']
+    response.parsed_body['data'].deep_symbolize_keys
   end
 end

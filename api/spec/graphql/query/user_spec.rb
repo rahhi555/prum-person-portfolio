@@ -29,9 +29,7 @@ RSpec.describe 'User関連Query', type: :request do
 
       it '現在のユーザーを取得できること' do
         post graphql_path, params: { query: }, headers: auth_header
-        id = parsed_data['currentUser']['id']
-        email = parsed_data['currentUser']['email']
-        profile = parsed_data['currentUser']['profile']
+        parsed_data[:currentUser] => { id:, email:, profile: }
         expect(id).to eq user.id.to_s
         expect(email).to eq user.email
         expect(profile).to eq user.profile
@@ -40,11 +38,11 @@ RSpec.describe 'User関連Query', type: :request do
       it 'ユーザーが保有しているスキル一覧及びカテゴリを取得できること' do
         post graphql_path, params: { query: }, headers: auth_header
 
-        res_skills = parsed_data['currentUser']['skills']
-        expect(res_skills.pluck('id')).to eq skills.pluck(:id).map(&:to_s)
+        res_skills = parsed_data[:currentUser][:skills]
+        expect(res_skills.pluck(:id)).to eq skills.pluck(:id).map(&:to_s)
 
-        categories = res_skills.pluck('category')
-        expect(categories.pluck('id')).to eq skills.pluck(:category_id).map(&:to_s)
+        categories = res_skills.pluck(:category)
+        expect(categories.pluck(:id)).to eq skills.pluck(:category_id).map(&:to_s)
       end
     end
 

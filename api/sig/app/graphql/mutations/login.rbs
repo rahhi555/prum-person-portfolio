@@ -1,5 +1,5 @@
 module Mutations
   class Login < BaseMutation
-    def resolve: (auth_input: Types::AuthInputType) -> { user: User, token: String }
+    def resolve: (auth_input: InputTypes::Auth) -> { user: User, token: String }
   end
 end
