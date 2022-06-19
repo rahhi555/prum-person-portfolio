@@ -1,0 +1,5 @@
+module Mutations
+  class UpdateUser < BaseLoginRequireMutation
+    def resolve: (update_user_input: InputTypes::UpdateUser::ruby_style_hash) -> { user: User }
+  end
+end

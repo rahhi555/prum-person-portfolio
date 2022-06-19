@@ -26,8 +26,9 @@ RSpec.describe 'Skill関連のMutation', type: :request do
       expect do
         post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{user.create_jwt}" }
       end.to change(Skill, :count).by(1)
-      skill_id = parsed_data['createSkill']['skill']['id']
-      expect(skill_id).to eq Skill.last.id.to_s
+
+      parsed_data[:createSkill][:skill] => { id: }
+      expect(id).to eq Skill.last.id.to_s
     end
 
     it 'ログインしていない場合、エラーが返ってくること' do
@@ -62,8 +63,7 @@ RSpec.describe 'Skill関連のMutation', type: :request do
     it 'ログイン済みの場合、スキルを更新できること' do
       post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{skill.user.create_jwt}" }
 
-      id = parsed_data['updateSkill']['skill']['id']
-      level = parsed_data['updateSkill']['skill']['level']
+      parsed_data[:updateSkill][:skill] => { id:, level: }
       expect(id).to eq skill.id.to_s
       expect(level).to eq skill.level + 1
     end

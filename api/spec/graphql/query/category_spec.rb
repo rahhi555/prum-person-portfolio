@@ -31,21 +31,21 @@ RSpec.describe 'Category関連 Query', type: :request do
       it 'カテゴリーが返ってくること' do
         post graphql_path, params: { query: }, headers: auth_header
 
-        ids = parsed_data['categories'].pluck('id')
+        ids = parsed_data[:categories].pluck(:id)
         expect(ids).to eq categories.pluck(:id).map(&:to_s)
       end
 
       it 'スキル一覧とユーザーが返ってくること' do
         post graphql_path, params: { query: }, headers: auth_header
 
-        res_category_own_skills = parsed_data['categories'].find do |category|
-          category['id'] == category_own_skills.id.to_s
+        res_category_own_skills = parsed_data[:categories].find do |category|
+          category[:id] == category_own_skills.id.to_s
         end
 
-        ids = res_category_own_skills['skills'].pluck('id')
+        ids = res_category_own_skills[:skills].pluck(:id)
         expect(ids).to eq skills.pluck(:id).map(&:to_s)
 
-        user_ids = res_category_own_skills['skills'].map { |skill| skill['user']['id'] }
+        user_ids = res_category_own_skills[:skills].map { |skill| skill[:user][:id] }
         expect(user_ids).to be_all(user.id.to_s)
       end
     end
