@@ -110,9 +110,9 @@ class Skill < ::ApplicationRecord
 
     def clear_category_id_change: () -> void
 
-    def name: () -> String?
+    def name: () -> String
 
-    def name=: (String?) -> String?
+    def name=: (String) -> String
 
     def name?: () -> bool
 
@@ -146,9 +146,9 @@ class Skill < ::ApplicationRecord
 
     def clear_name_change: () -> void
 
-    def level: () -> Integer?
+    def level: () -> Integer
 
-    def level=: (Integer?) -> Integer?
+    def level=: (Integer) -> Integer
 
     def level?: () -> bool
 

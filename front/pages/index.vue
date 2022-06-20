@@ -4,7 +4,7 @@ const { currentUser } = useCurrentUser();
 
 <template>
   <div class="profile-wrapper">
-    <img class="avater" />
+    <img class="avater" :src="currentUser?.avatar || ''">
     <div class="profile">
       <h1>自己紹介</h1>
       <p class="profile-text">{{ currentUser ? currentUser.profile : "ログインして、自己紹介文と画像を登録しましょう！" }}</p>

@@ -10,6 +10,9 @@ export default {
 
 const Template: Story = (args) => ({
   components: { TheHeader },
+  methods: {
+    useCurrentUser() { return true }
+  },
   setup() {
     return { args }
   },

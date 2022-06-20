@@ -8,6 +8,7 @@ mutation updateUser($profile: String!) {
       id
       email
       profile
+      avatar
     }
   }
 }

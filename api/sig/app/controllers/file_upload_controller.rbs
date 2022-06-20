@@ -1,0 +1,9 @@
+class FileUploadController < ApplicationController
+  @current_user: (User | nil)
+
+  def user: () -> nil
+
+  private
+
+  def logged_in_user: () -> nil
+end

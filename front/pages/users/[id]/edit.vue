@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import type { UpdateUserMutation } from '#build/gql-sdk'
-import { gqlErrorHandling } from '~/graphql'
+import type { UpdateUserMutation } from "#build/gql-sdk";
+import { gqlErrorHandling } from "~/graphql";
 
 definePageMeta({
-  middleware: 'auth'
-})
+  middleware: "auth",
+});
 
-const { updateCurrentUser, currentUser } = useCurrentUser()
+const { updateCurrentUser, currentUser } = useCurrentUser();
 
-const newProfile = ref(currentUser.value?.profile || "")
+const newProfile = ref(currentUser.value?.profile || "");
+
+const { uploadFile, preview_url, setAvatar } = useFileUpload()
 
 const updateUser = async () => {
   try {
-    const { updateUser } = await GqlUpdateUser({ profile: newProfile.value }) as UpdateUserMutation
+    await uploadFile("user")
+    const { updateUser } = (await GqlUpdateUser({ profile: newProfile.value })) as UpdateUserMutation;
+    
+    if (updateUser == null) throw new Error();
 
-    if (updateUser == null) throw new Error
-
-    await updateCurrentUser(updateUser.user)
-  } catch(e) {
-    gqlErrorHandling(e)
+    await updateCurrentUser(updateUser.user);
+  } catch (e) {
+    gqlErrorHandling(e);
   }
-}
+};
 </script>
 
 <template>
@@ -31,7 +34,8 @@ const updateUser = async () => {
       <textarea id="edit-profile" v-model="newProfile"></textarea>
 
       <label for="edit-avatar">アバター画像</label>
-      <input id="edit-avatar" type="file" accept="image/png,image/jpeg">
+      <input id="edit-avatar" type="file" accept="image/png,image/jpeg" @change="setAvatar" />
+      <img :src="preview_url" />
       <CommonButton color="primary" text="自己紹介を確定する" @click.prevent="updateUser"></CommonButton>
     </form>
   </div>
@@ -48,5 +52,9 @@ const updateUser = async () => {
 .edit-profile-form {
   display: flex;
   flex-direction: column;
+}
+
+#edit-profile {
+  border-bottom: 1px solid black;
 }
 </style>

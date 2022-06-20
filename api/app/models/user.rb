@@ -15,6 +15,7 @@
 #
 class User < ApplicationRecord
   has_many :skills, dependent: :destroy
+  has_one_attached :avatar
 
   before_save { email.downcase! }
 
@@ -25,9 +26,16 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png] },
+                     size: { less_than: 5.megabytes }
+
   has_secure_password
 
   def create_jwt
     JWT.encode({ user_id: id }, Rails.application.credentials.secret_key_base)
+  end
+
+  def avatar_url
+    avatar.attached? ? Rails.application.routes.url_helpers.url_for(avatar) : nil
   end
 end

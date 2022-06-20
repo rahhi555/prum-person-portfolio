@@ -1,6 +1,4 @@
 class GraphqlController < ApplicationController
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-
   def execute
     variables = prepare_variables(params[:variables])
     query = params[:query]
@@ -41,12 +39,5 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
-  end
-
-  def current_user
-    authenticate_with_http_token do |token|
-      user_id = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]['user_id']
-      User.find_by(id: user_id)
-    end
   end
 end

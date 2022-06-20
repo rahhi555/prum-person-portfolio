@@ -43,7 +43,7 @@ color: #FFFFFF;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px 40px;
+  /* padding: 16px 40px; */
 
   width: 152px;
   height: 53px;
@@ -53,7 +53,7 @@ color: #FFFFFF;
 }
 
 .login-btn-font {
-width: 72px;
+width: auto;
 height: 21px;
 
 font-size: 18px;
