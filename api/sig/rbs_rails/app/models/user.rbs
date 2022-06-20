@@ -219,8 +219,32 @@ class User < ::ApplicationRecord
     def clear_updated_at_change: () -> void
   end
   include GeneratedAttributeMethods
+  def skills: () -> Skill::ActiveRecord_Associations_CollectionProxy
+  def skills=: (Skill::ActiveRecord_Associations_CollectionProxy | Array[Skill]) -> (Skill::ActiveRecord_Associations_CollectionProxy | Array[Skill])
+  def skill_ids: () -> Array[Integer]
+  def skill_ids=: (Array[Integer]) -> Array[Integer]
+  def avatar_attachment: () -> ActiveStorage::Attachment?
+  def avatar_attachment=: (ActiveStorage::Attachment?) -> ActiveStorage::Attachment?
+  def build_avatar_attachment: (untyped) -> ActiveStorage::Attachment
+  def create_avatar_attachment: (untyped) -> ActiveStorage::Attachment
+  def create_avatar_attachment!: (untyped) -> ActiveStorage::Attachment
+  def reload_avatar_attachment: () -> ActiveStorage::Attachment?
+  def avatar_blob: () -> ActiveStorage::Blob?
+  def avatar_blob=: (ActiveStorage::Blob?) -> ActiveStorage::Blob?
+  def build_avatar_blob: (untyped) -> ActiveStorage::Blob
+  def create_avatar_blob: (untyped) -> ActiveStorage::Blob
+  def create_avatar_blob!: (untyped) -> ActiveStorage::Blob
+  def reload_avatar_blob: () -> ActiveStorage::Blob?
 
   module GeneratedAssociationMethods
+    def avatar: () -> ActiveStorage::Attached::One
+
+    def avatar=: (ActionDispatch::Http::UploadedFile) -> ActionDispatch::Http::UploadedFile
+               | (Rack::Test::UploadedFile) -> Rack::Test::UploadedFile
+               | (ActiveStorage::Blob) -> ActiveStorage::Blob
+               | (String) -> String
+               | ({ io: IO, filename: String, content_type: String? }) -> { io: IO, filename: String, content_type: String? }
+               | (nil) -> nil
   end
   include GeneratedAssociationMethods
   module ActiveModel_SecurePassword_InstanceMethodsOnActivation_password
@@ -236,7 +260,10 @@ class User < ::ApplicationRecord
   end
   include ActiveModel_SecurePassword_InstanceMethodsOnActivation_password
 
+  def self.with_attached_avatar: () -> ActiveRecord_Relation
+
   module GeneratedRelationMethods
+    def with_attached_avatar: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ::ActiveRecord::Relation

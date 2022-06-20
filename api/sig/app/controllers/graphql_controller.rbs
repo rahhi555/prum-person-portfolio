@@ -9,6 +9,4 @@ class GraphqlController < ApplicationController
   def prepare_variables: (untyped variables_param) -> untyped
 
   def handle_error_in_development: (untyped e) -> untyped
-
-  def current_user: () -> (User | nil)
 end

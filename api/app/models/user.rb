@@ -36,6 +36,6 @@ class User < ApplicationRecord
   end
 
   def avatar_url
-    avatar.attached? ? Rails.application.routes.url_helpers.url_for(image) : nil
+    avatar.attached? ? Rails.application.routes.url_helpers.url_for(avatar) : nil
   end
 end

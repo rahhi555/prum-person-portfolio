@@ -2,6 +2,7 @@ interface _RbsRailsPathHelpers
   def rails_info_properties_path: (*untyped) -> String
   def rails_info_routes_path: (*untyped) -> String
   def rails_info_path: (*untyped) -> String
+  def file_upload_user_path: (*untyped) -> String
   def graphql_path: (*untyped) -> String
   def health_check_path: (*untyped) -> String
   def rails_service_blob_path: (*untyped) -> String
@@ -18,6 +19,7 @@ interface _RbsRailsPathHelpers
   def rails_info_properties_url: (*untyped) -> String
   def rails_info_routes_url: (*untyped) -> String
   def rails_info_url: (*untyped) -> String
+  def file_upload_user_url: (*untyped) -> String
   def graphql_url: (*untyped) -> String
   def health_check_url: (*untyped) -> String
   def rails_service_blob_url: (*untyped) -> String

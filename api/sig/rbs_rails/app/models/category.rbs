@@ -147,6 +147,10 @@ class Category < ::ApplicationRecord
     def clear_updated_at_change: () -> void
   end
   include GeneratedAttributeMethods
+  def skills: () -> Skill::ActiveRecord_Associations_CollectionProxy
+  def skills=: (Skill::ActiveRecord_Associations_CollectionProxy | Array[Skill]) -> (Skill::ActiveRecord_Associations_CollectionProxy | Array[Skill])
+  def skill_ids: () -> Array[Integer]
+  def skill_ids=: (Array[Integer]) -> Array[Integer]
 
   module GeneratedAssociationMethods
   end
