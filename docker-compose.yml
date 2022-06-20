@@ -25,6 +25,8 @@ services:
   front:
     build:
       context: ./front
+      args:
+        DOCKER_ENV: "development"
     container_name: prum-front
     volumes:
       - ./front:/front
