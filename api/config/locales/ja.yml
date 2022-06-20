@@ -8,6 +8,8 @@ ja:
       user:
         email: 'メールアドレス'
         password: 'パスワード'
+        profile: 'プロフィール'
+        avatar: 'アバター画像'
       category:
         name: 'カテゴリー名'
       skill:

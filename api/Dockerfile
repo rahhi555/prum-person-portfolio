@@ -1,6 +1,6 @@
 FROM ruby:3.1.2-alpine
 
-ENV RUNTIME_PACKAGES="linux-headers make gcc libc-dev tzdata bash imagemagick postgresql-client libpq-dev" \
+ENV RUNTIME_PACKAGES="linux-headers make gcc libc-dev tzdata bash imagemagick postgresql-client libpq-dev vips" \
     DEV_PACKAGES="build-base curl-dev" \
     HOME=/api \
     LANG=C.UTF-8 \

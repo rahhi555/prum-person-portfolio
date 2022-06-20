@@ -1,3 +1,10 @@
+const user = {
+  id: "3",
+  email: "test1@example.com",
+  password: "password",
+  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.jzKOZWCIlXZFg9yns_fRexwYQN5A9BTD9XBC-R4W6SE"
+}
+
 describe('empty spec', () => {
   it('ログイン処理', () => {
     cy.visit("/")
@@ -8,10 +15,23 @@ describe('empty spec', () => {
     cy.wait(500)
     cy.get('.common-btn').click()
     cy.get('.alert').contains("ログインに失敗しました")
-    cy.get('#email').type('test1@example.com')
-    cy.get('#password').type('password')
+    cy.get('#email').type(user.email)
+    cy.get('#password').type(user.password)
     cy.get('.common-btn').click()
     cy.get('.alert').contains("ログインしました")
     cy.url().should('match', /users\/\d+\/edit/)
+  })
+
+  it('プロフィール更新', () => {
+    cy.setCookie('prum_person_portfolio_jwt', user.jwt)
+    cy.visit("/")
+    cy.wait(500)
+    cy.get(".common-btn").click()
+    const newProfile = Math.random().toString(32).substring(2)
+    cy.get("#edit-profile").clear().type(newProfile, {  })
+    cy.get(".common-btn").click()
+    cy.get('.alert').contains('ユーザー情報を更新しました')
+    cy.get('.header-title').click()
+    cy.get('.profile-text').contains(newProfile)
   })
 })

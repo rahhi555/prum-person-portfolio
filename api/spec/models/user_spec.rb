@@ -63,6 +63,15 @@ RSpec.describe User, type: :model do
       it { is_expected.to validate_length_of(:password).is_at_least(6) }
       it { is_expected.to have_secure_password }
     end
+
+    context 'アバター画像' do
+      it { is_expected.to have_one_attached(:avatar) }
+
+      it {
+        is_expected.to validate_content_type_of(:avatar).allowing('image/jpeg', 'image/gif', 'image/png')
+      }
+      it { is_expected.to validate_size_of(:avatar).less_than(5.megabytes) }
+    end
   end
 
   describe 'Userモデルに定義されたメソッド' do
