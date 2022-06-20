@@ -1,6 +1,6 @@
 import { useAlert } from '~/composables/useAlert'
 
-interface GraphqlError {
+export interface GraphqlError {
   response: {
     errors: { message: string }[];
   };

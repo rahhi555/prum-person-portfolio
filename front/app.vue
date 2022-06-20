@@ -1,4 +1,10 @@
 <script setup lang="ts">
+// if (process.env.NODE_ENV === 'development') {
+//   import('./mocks/browser').then(module => {
+//     module.worker.start()
+//   })
+// }
+
 // リロード時のログイン処理
 onServerPrefetch(async () => {
   const { ssrUserInit } = useCurrentUser()
