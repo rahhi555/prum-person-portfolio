@@ -77,6 +77,7 @@ Rails.application.configure do
   config.hosts << 'prum-api'
 
   # Active Storage用の設定。
+  Rails.application.routes.default_url_options[:protocol] = 'http'
   Rails.application.routes.default_url_options[:host] = 'localhost'
   Rails.application.routes.default_url_options[:port] = 3000
 end

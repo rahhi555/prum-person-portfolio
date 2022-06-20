@@ -1136,6 +1136,20 @@
           "possibleTypes": null,
           "fields": [
             {
+              "name": "avatar",
+              "description": "アバター画像のurl",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "args": [
+
+              ]
+            },
+            {
               "name": "createdAt",
               "description": "作成時刻",
               "type": {

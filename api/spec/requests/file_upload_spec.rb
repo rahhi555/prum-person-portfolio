@@ -13,7 +13,7 @@ RSpec.describe 'FileUploads', type: :request do
 
         expect(user.reload.avatar.attached?).to be true
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body['id']).to eq user.id
+        expect(response.parsed_body['id']).to eq user.id.to_s
         expect(response.parsed_body['avatar']).to eq user.avatar_url
       end
     end

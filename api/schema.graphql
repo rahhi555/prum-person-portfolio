@@ -363,6 +363,11 @@ type UpdateUserPayload {
 """
 type User {
   """
+  アバター画像のurl
+  """
+  avatar: String
+
+  """
   作成時刻
   """
   createdAt: ISO8601DateTime!

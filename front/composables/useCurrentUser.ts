@@ -92,7 +92,7 @@ export const useCurrentUser = () => {
     let message 
 
     if (currentUser == null) message = "ログインしていません"
-    if (currentUser.value?.id !== user.id ) message = "異なるユーザーの情報が与えられました"
+    if (currentUser.value?.id !== user.id ) message = "異なるユーザーの情報が更新されようとしました"
 
     if (!!message) { 
       showAlert({ message, color: 'var(--danger-color)' }) 

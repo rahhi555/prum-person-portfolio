@@ -3,7 +3,7 @@ class FileUploadController < ApplicationController
 
   def user
     @current_user.avatar.attach(params[:avatar])
-    render json: { id: @current_user.id, avatar: @current_user.avatar_url }, status: :ok
+    render json: { id: @current_user.id.to_s, avatar: @current_user.avatar_url }, status: :ok
   end
 
   private
