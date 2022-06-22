@@ -33,7 +33,7 @@ type Category {
   name: String!
 
   """
-  全所属スキル
+  ログイン中のユーザーの全所持スキル
   """
   skills: [Skill!]
 

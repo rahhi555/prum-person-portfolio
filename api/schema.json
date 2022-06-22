@@ -127,7 +127,7 @@
             },
             {
               "name": "skills",
-              "description": "全所属スキル",
+              "description": "ログイン中のユーザーの全所持スキル",
               "type": {
                 "kind": "LIST",
                 "name": null,
