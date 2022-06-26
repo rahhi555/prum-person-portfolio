@@ -1,13 +1,9 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-  "compilerOptions": { 
+  "compilerOptions": {
     "types": ["vite/client"]
   },
-  "types": [
-    "vite/client"
-  ],
-  "exclude": [
-    "**/*.stories.ts"
-  ]
+  "types": ["vite/client"],
+  "exclude": ["**/*.stories.ts"]
 }

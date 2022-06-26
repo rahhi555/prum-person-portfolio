@@ -12,8 +12,9 @@ module ObjectTypes
     # ログイン中のユーザーの全所持スキルを取得する
     def skills
       require_authorized
-      user = context[:current_user]
-      dataloader.with(::Sources::SkillsByUserId).load(user.id)
+      user_id = context[:current_user].id
+      category_id = object.id
+      dataloader.with(::Sources::SkillsByCategoryId).load({ category_id:, user_id: })
     end
   end
 end

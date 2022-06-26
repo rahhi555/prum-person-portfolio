@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps<{ id: string, type: string, label: string, modelValue: string }>()
-const emit = defineEmits<{(e: 'update:modelValue', value: string ): void}>()
+const props = defineProps<{ id: string, type: string, label: string, modelValue: string | number }>()
+const emit = defineEmits<{(e: 'update:modelValue', value: string | number ): void}>()
 
 const vModelValue = computed({
   get: () => props.modelValue,
@@ -13,9 +13,11 @@ const vModelValue = computed({
 <template>
   <div class="input-form">
     <label :for="id">{{label}}</label>
-    <input  :id="id"
+    <input  :id="id"       
             :type="type"
-            v-model="vModelValue" />
+            v-model="vModelValue"
+            v-bind="$attrs"
+             />
   </div>
 </template>
 

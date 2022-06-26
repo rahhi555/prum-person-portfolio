@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Category関連 Query', type: :request do
   describe 'categories Query' do
-
     # 最初からカテゴリは３つある
     let!(:categories) { create_list(:category, 3) }
 

@@ -1,3 +1,5 @@
+import { before } from "cypress/types/lodash"
+
 const user = {
   id: "3",
   email: "test1@example.com",

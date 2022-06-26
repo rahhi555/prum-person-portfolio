@@ -6,6 +6,6 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :current_user, resolver: Queries::CurrentUser, description: 'ログイン中のユーザー'
-    field :categories, resolver: Queries::Categories, description: '全カテゴリー'
+    field :categories, resolver: Queries::Categories, description: 'ログイン中のユーザーの全カテゴリー'
   end
 end

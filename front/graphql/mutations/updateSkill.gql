@@ -1,0 +1,13 @@
+mutation updateSkill($id: ID!, $level: Int!) {
+  updateSkill(input: {
+    updateSkillInput: {
+      id: $id,
+      level: $level
+    }
+  }) {
+    skill {
+      id
+      level
+    }
+  }
+}

@@ -5,9 +5,11 @@ module Sources
     end
 
     def fetch(ids)
-      records = @model_class.where(category_id: ids)
+      category_ids = ids.pluck(:category_id)
+      user_ids = ids.pluck(:user_id)
+      records = @model_class.where(category_id: category_ids, user_id: user_ids)
                             .group_by(&:category_id)
-      ids.map { |id| records[id] || [] }
+      category_ids.map { |id| records[id] || [] }
     end
   end
 end

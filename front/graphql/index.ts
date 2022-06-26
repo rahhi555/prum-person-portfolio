@@ -1,4 +1,8 @@
 import { useAlert } from '~/composables/useAlert'
+import type { CategoriesQuery } from "#build/gql-sdk"
+
+// CategoriesQueryからnullとundefinedを除外し、配列内のオブジェクトを取得する
+export type Category = Exclude<CategoriesQuery["categories"], null | undefined>[number]
 
 export interface GraphqlError {
   response: {

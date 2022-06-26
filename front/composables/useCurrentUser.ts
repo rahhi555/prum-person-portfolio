@@ -1,4 +1,4 @@
-import type { CurrentUserQuery, Auth, LoginMutation } from "#build/gql-sdk";
+import type { CurrentUserQuery, Auth } from "#build/gql-sdk";
 import { gqlErrorHandling } from "~~/graphql";
 
 const JWT_COOKIE_NAME = "prum_person_portfolio_jwt";
@@ -20,7 +20,7 @@ export const useCurrentUser = () => {
   const login = async ({ email, password }: Auth) => {
     const { showAlert } = useAlert();
     try {
-      const { login } = (await GqlLogin({ email, password })) as LoginMutation;
+      const { login } = await GqlLogin({ email, password })
 
       if (login == null) throw new Error();
 
@@ -58,7 +58,7 @@ export const useCurrentUser = () => {
     useGqlToken(cookieJwt);
 
     try {
-      const res = (await GqlCurrentUser()) as CurrentUserQuery;
+      const res = await GqlCurrentUser();
 
       if (res.currentUser == null) throw new Error();
 

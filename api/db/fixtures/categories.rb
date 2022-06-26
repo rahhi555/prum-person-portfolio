@@ -2,5 +2,4 @@
 Category.seed(:name,
               { name: 'バックエンド' },
               { name: 'フロントエンド' },
-              { name: 'インフラ' }
-)
+              { name: 'インフラ' })

@@ -25,5 +25,5 @@ class Skill < ApplicationRecord
   belongs_to :category
 
   validates :name, presence: true, length: { maximum: 255 }
-  validates :level, presence: true, numericality: { only_integer: true, in: 1..100 }
+  validates :level, presence: true, numericality: { only_integer: true, in: 0..100 }
 end

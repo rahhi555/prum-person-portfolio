@@ -1,0 +1,12 @@
+
+query Categories {
+  categories {
+    id
+    name
+    skills {
+      id
+      level
+      name
+    }
+  }
+}
