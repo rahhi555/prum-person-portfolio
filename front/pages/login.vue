@@ -15,9 +15,9 @@ const { login } = useCurrentUser()
   <div class="login-wrapper">
     <h1 class="login-h1">ログイン</h1>
     <form class="login-form">
-      <CommonInput :id="'email'" :type="'email'" :label="'メールアドレス'" v-model="user.email"/>
-      <CommonInput :id="'password'" :type="'password'" :label="'パスワード'" v-model="user.password" />
-      <CommonButton :color="'primary'" :type="'submit'" :text="'ログインする'" @click.prevent="login(user)" /> 
+      <AtomsInput :id="'email'" :type="'email'" :label="'メールアドレス'" v-model="user.email"/>
+      <AtomsInput :id="'password'" :type="'password'" :label="'パスワード'" v-model="user.password" />
+      <AtomsButton :color="'primary'" :type="'submit'" :text="'ログインする'" @click.prevent="login(user)" /> 
     </form>
   </div>
 </template>
@@ -43,7 +43,7 @@ const { login } = useCurrentUser()
   padding: 0px;
   gap: 48px;
 
-  width: 480px;
+  width: min(80%, 480px);
   height: 245px;
 }
 </style>

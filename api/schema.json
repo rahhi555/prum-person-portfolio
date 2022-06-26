@@ -127,7 +127,7 @@
             },
             {
               "name": "skills",
-              "description": "全所属スキル",
+              "description": "ログイン中のユーザーの全所持スキル",
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -697,7 +697,7 @@
           "fields": [
             {
               "name": "categories",
-              "description": "全カテゴリー",
+              "description": "ログイン中のユーザーの全カテゴリー",
               "type": {
                 "kind": "LIST",
                 "name": null,

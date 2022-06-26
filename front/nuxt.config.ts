@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
     strict: true,
+    tsConfig: {
+      "compilerOptions": {
+        "paths": { "/front/*": ["*"] }
+      },
+    }
   },
 
   app: {

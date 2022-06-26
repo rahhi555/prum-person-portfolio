@@ -1,0 +1,6 @@
+{
+  "id": "3",
+  "email": "test1@example.com",
+  "password": "password",
+  "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.jzKOZWCIlXZFg9yns_fRexwYQN5A9BTD9XBC-R4W6SE"
+}

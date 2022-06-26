@@ -5,6 +5,7 @@ namespace :cmd do
   task start: :environment do
     sh 'rails db:create'
     sh 'rails db:migrate'
+    sh 'rails db:seed_fu'
     sh "bundle exec rails s -b '0.0.0.0'"
   end
 end

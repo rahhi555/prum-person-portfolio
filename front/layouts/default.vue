@@ -1,10 +1,10 @@
 <template>
   <div class="default-wrapper">
-    <LayoutsDefaultTheHeader />
+    <OrganismsTheHeader />
     <main class="default-container">
       <slot />
     </main> 
-    <LayoutsDefaultTheFooter />
+    <OrganismsTheFooter />
   </div>
 </template>
 

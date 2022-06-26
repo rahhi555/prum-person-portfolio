@@ -34,7 +34,7 @@ RSpec.describe Skill, type: :model do
 
   it {
     is_expected.to validate_inclusion_of(:level)
-      .in_range(1..100)
-      .with_message(I18n.t('activerecord.errors.messages.in', count: '1..100'))
+      .in_range(0..100)
+      .with_message(I18n.t('activerecord.errors.messages.in', count: '0..100'))
   }
 end

@@ -5,7 +5,21 @@ import ButtonVue from "./Button.vue"
 export default {
   title: "ButtonVue",
   component: ButtonVue,
-  decorators: [withDesign]
+  decorators: [withDesign],
+  argTypes: {
+    color: {
+      control: {
+        type: 'inline-radio',
+        options: ['primary', 'secondary']
+      }
+    },
+    size: {
+      control: {
+        type: 'inline-radio',
+        options: ['small', 'medium', 'large']
+      }
+    }
+  }
 } as Meta
 
 const Template: Story = (args) => ({

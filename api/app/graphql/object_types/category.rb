@@ -7,11 +7,14 @@ module ObjectTypes
     field :name, String, null: false, description: 'カテゴリー名'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: '作成日時'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false, description: '更新日時'
-    field :skills, [ObjectTypes::Skill], description: '全所属スキル'
+    field :skills, [ObjectTypes::Skill], description: 'ログイン中のユーザーの全所持スキル'
 
+    # ログイン中のユーザーの全所持スキルを取得する
     def skills
       require_authorized
-      dataloader.with(Sources::SkillsByCategoryId).load(object.id)
+      user_id = context[:current_user].id
+      category_id = object.id
+      dataloader.with(::Sources::SkillsByCategoryId).load({ category_id:, user_id: })
     end
   end
 end

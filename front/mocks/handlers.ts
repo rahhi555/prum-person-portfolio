@@ -10,6 +10,7 @@ const user = {
 
 export const handlers = [
   graphql.mutation<LoginMutation, LoginMutationVariables>('login', (req, res, ctx) => {
+    console.log('login')
     const { email, password } = req.variables
     
     if (user.email === email && user.password == password) {
@@ -35,7 +36,7 @@ export const handlers = [
   }),
 
   graphql.query<CurrentUserQuery>('currentUser', (req, res, ctx) => {
-    console.log(req.headers)
+    console.log('currentUser')
     return res(
       ctx.data({
         currentUser: {

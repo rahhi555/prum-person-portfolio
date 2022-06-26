@@ -1,3 +1,5 @@
+import { before } from "cypress/types/lodash"
+
 const user = {
   id: "3",
   email: "test1@example.com",
@@ -11,6 +13,9 @@ describe('empty spec', () => {
     cy.get('.profile-text').contains("ログインして、自己紹介文と画像を登録しましょう！")
     cy.get('.login-btn').click()
     cy.url().should('include', '/login')
+    // ログインしていない状態でユーザーページにアクセスすると、ログインページに遷移する
+    cy.visit("/users/1/edit")
+    cy.url().should('include', '/login')
     // 何故かクリック前に500msほど待機しないとメソッドが発火しない
     cy.wait(500)
     cy.get('.common-btn').click()
@@ -20,6 +25,9 @@ describe('empty spec', () => {
     cy.get('.common-btn').click()
     cy.get('.alert').contains("ログインしました")
     cy.url().should('match', /users\/\d+\/edit/)
+    // ログインページにアクセスすると、トップページに遷移する
+    cy.visit("/login")
+    cy.url().should('include', '/')
   })
 
   it('プロフィール更新', () => {
@@ -33,5 +41,11 @@ describe('empty spec', () => {
     cy.get('.alert').contains('ユーザー情報を更新しました')
     cy.get('.header-title').click()
     cy.get('.profile-text').contains(newProfile)
+  })
+
+  it('自分以外のページにアクセスすると、トップページに遷移する', () => {
+    cy.setCookie('prum_person_portfolio_jwt', user.jwt)
+    cy.visit("/users/2/edit")
+    cy.url().should('include', '/')
   })
 })

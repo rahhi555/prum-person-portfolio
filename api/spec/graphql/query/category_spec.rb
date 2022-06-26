@@ -2,10 +2,19 @@ require 'rails_helper'
 
 RSpec.describe 'Category関連 Query', type: :request do
   describe 'categories Query' do
-    let(:user) { create(:user) }
+    # 最初からカテゴリは３つある
     let!(:categories) { create_list(:category, 3) }
+
+    # 3つのうち1つのみスキルを持つ
     let(:category_own_skills) { categories[0] }
+
+    # 現在のユーザーとそのスキル
+    let(:user) { create(:user) }
     let!(:skills) { create_list(:skill, 3, user:, category: category_own_skills) }
+
+    # 別ユーザーのスキル
+    let!(:other_skills) { create_list(:skill, 3, category: category_own_skills) }
+
     let(:query) do
       <<~QUERY
         {
@@ -35,7 +44,7 @@ RSpec.describe 'Category関連 Query', type: :request do
         expect(ids).to eq categories.pluck(:id).map(&:to_s)
       end
 
-      it 'スキル一覧とユーザーが返ってくること' do
+      it 'ユーザーとそのユーザーのスキルが返ってくること' do
         post graphql_path, params: { query: }, headers: auth_header
 
         res_category_own_skills = parsed_data[:categories].find do |category|

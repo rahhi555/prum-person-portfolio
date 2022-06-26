@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { UpdateUserMutation } from "#build/gql-sdk";
 import { gqlErrorHandling } from "~/graphql";
 
 definePageMeta({
@@ -15,11 +14,12 @@ const { uploadFile, preview_url, setAvatar } = useFileUpload()
 const updateUser = async () => {
   try {
     await uploadFile("user")
-    const { updateUser } = (await GqlUpdateUser({ profile: newProfile.value })) as UpdateUserMutation;
+    const { updateUser } = await GqlUpdateUser({ profile: newProfile.value })
     
     if (updateUser == null) throw new Error();
 
     await updateCurrentUser(updateUser.user);
+    navigateTo('/')
   } catch (e) {
     gqlErrorHandling(e);
   }
@@ -36,7 +36,7 @@ const updateUser = async () => {
       <label for="edit-avatar">アバター画像</label>
       <input id="edit-avatar" type="file" accept="image/png,image/jpeg" @change="setAvatar" />
       <img :src="preview_url" />
-      <CommonButton color="primary" text="自己紹介を確定する" @click.prevent="updateUser"></CommonButton>
+      <AtomsButton color="primary" text="自己紹介を確定する" @click.prevent="updateUser"></AtomsButton>
     </form>
   </div>
 </template>
@@ -49,12 +49,22 @@ const updateUser = async () => {
   margin-top: 3rem;
 }
 
+.edit-profile-wrapper > h1 {
+  font-size: 36px;
+}
+
 .edit-profile-form {
   display: flex;
   flex-direction: column;
+  margin-top: 3rem;
 }
 
 #edit-profile {
   border-bottom: 1px solid black;
+  margin-bottom: 3rem;
+}
+
+#edit-avatar {
+  margin-bottom: 3rem;
 }
 </style>

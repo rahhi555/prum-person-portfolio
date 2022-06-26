@@ -1,0 +1,19 @@
+mutation createSkill($categoryId: ID!, $name: String!, $level: Int!) {
+  createSkill(input: {
+    createSkillInput: {
+      categoryId: $categoryId,
+      name: $name,
+      level: $level
+    }
+  }) {
+    skill {
+      id
+      name
+      level
+      category {
+        id
+        name
+      }
+    }
+  }
+}
