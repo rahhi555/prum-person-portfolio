@@ -20,6 +20,7 @@ gem 'puma'
 gem 'rack-cors'
 gem 'rails-i18n'
 gem 'ruby-vips'
+gem 'seed-fu'
 gem 'silencer'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
@@ -39,7 +40,6 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'seed-fu'
 end
 
 group :test do
