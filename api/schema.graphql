@@ -223,7 +223,7 @@ type Mutation {
 """
 type Query {
   """
-  全カテゴリー
+  ログイン中のユーザーの全カテゴリー
   """
   categories: [Category!]
 
