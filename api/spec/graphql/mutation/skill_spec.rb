@@ -74,4 +74,38 @@ RSpec.describe 'Skill関連のMutation', type: :request do
       expect_not_login
     end
   end
+
+  describe 'deleteSkill Mutation' do
+    let!(:skill) { create(:skill) }
+    let(:query) do
+      <<~QUERY
+        mutation {
+          deleteSkill(input: {
+            id: #{skill.id}
+          }) {
+            skill {
+              id
+            }
+          }
+        }
+      QUERY
+    end
+
+    it 'ログイン済みの場合、スキルを削除できること' do
+      expect do
+        post graphql_path, params: { query: }, headers: { Authorization: "Bearer #{skill.user.create_jwt}" }
+      end.to change(Skill, :count).by(-1)
+
+      parsed_data[:deleteSkill][:skill] => { id: }
+      expect(id).to eq skill.id.to_s
+    end
+
+    it 'ログインしていない場合、エラーが返ってくること' do
+      expect do
+        post graphql_path, params: { query: }
+      end.not_to change(Skill, :count)
+
+      expect_not_login
+    end
+  end
 end

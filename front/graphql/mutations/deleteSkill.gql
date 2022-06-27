@@ -1,0 +1,9 @@
+mutation deleteSkill($id: ID!) {
+  deleteSkill(input: {
+    id: $id
+  }) {
+    skill {
+      id
+    }
+  }
+}

@@ -1,0 +1,5 @@
+module Mutations
+  class DeleteSkill < BaseLoginRequireMutation
+    def resolve: (id: Integer) -> { skill: Skill }
+  end
+end
