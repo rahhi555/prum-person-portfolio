@@ -32,7 +32,7 @@ export const useCurrentUser = () => {
 
       useGqlToken(jwt.value);
 
-      navigateTo(`/users/${login.user.id}/edit`);
+      navigateTo('/');
       showAlert({ message: "ログインしました", color: "var(--success-color)" });
     } catch (e) {
       gqlErrorHandling(e);

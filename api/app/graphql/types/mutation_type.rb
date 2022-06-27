@@ -6,5 +6,6 @@ module Types
     field :update_user, mutation: Mutations::UpdateUser, description: 'ユーザー更新'
     field :create_skill, mutation: Mutations::CreateSkill, description: 'スキル作成'
     field :update_skill, mutation: Mutations::UpdateSkill, description: 'スキル更新'
+    field :delete_skill, mutation: Mutations::DeleteSkill, description: 'スキル削除'
   end
 end

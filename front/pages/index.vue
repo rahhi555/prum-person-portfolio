@@ -12,7 +12,7 @@ const { currentUser } = useCurrentUser();
           {{ currentUser ? currentUser.profile : "ログインして、自己紹介文と画像を登録しましょう！" }}
         </p>
         <NuxtLink v-if="currentUser" :to="`/users/${currentUser.id}/edit`">
-          <AtomsButton :color="'primary'" :text="'自己紹介を編集する'" />
+          <AtomsButton :color="'primary'" :text="'自己紹介を編集する'" :size="'large'" />
         </NuxtLink>
       </div>
     </div>
@@ -20,7 +20,7 @@ const { currentUser } = useCurrentUser();
     <div class="skill-wrapper" v-if="currentUser">
       <h1>スキルチャート</h1>
       <NuxtLink :to="`/users/${currentUser.id}/skills/edit`">
-        <AtomsButton :color="'primary'" :text="'スキルを編集する'" />
+        <AtomsButton :color="'primary'" :text="'スキルを編集する'" :size="'large'" />
       </NuxtLink>
     </div>
   </div>
