@@ -8,7 +8,7 @@ export interface Props {
   size: "small" | "medium" | "large";
 }
 
-const { color, size } = withDefaults(defineProps<Props>(), {
+const { color, size, outline } = withDefaults(defineProps<Props>(), {
   outline: false,
   size: "large"
 });
@@ -34,27 +34,47 @@ const sizeObj = computed(() => {
       };
   }
 })
+
+const commonBtnStyles = computed(() => {
+  return {
+    height: sizeObj.value.height,
+    backgroundColor: outline ? "white" : themeColor.value,
+    border: outline ? `1px solid ${themeColor.value}` : "none",
+  }
+})
+
+const commonBtnTextStyles = computed(() => {
+  return {
+    color: outline ? themeColor.value : "white",
+    fontSize: sizeObj.value.fontSize
+  }
+})
 </script>
 
 <template>
-  <button class="common-btn">
-    <span class="common-btn-text">{{text}}</span>
+  <button class="common-btn" :style="commonBtnStyles">
+    <span class="common-btn-text" :style="commonBtnTextStyles">{{text}}</span>
   </button>
 </template>
 
 <style scoped>
 .common-btn {
   width: min(100%, 322px);
-  height: v-bind('sizeObj.height');
   text-align: center;
   border-radius: 4px;
-  background-color: v-bind('outline ? "white" : themeColor');
-  border: 1px solid v-bind('outline ? themeColor : "transparent"');
   padding: 8px 16px;
+
+  /* 
+    現時点ではcss v-bindにcomputedを使用すると、ssr時にバグる
+    https://github.com/nuxt/framework/issues/5546
+   */
+  /* height: v-bind('sizeObj.height'); */
+  /* background-color: v-bind('outline ? "white" : themeColor'); */
+  /* border: 1px solid v-bind('outline ? themeColor : "transparent"'); */
 }
 
-.common-btn-text {
+/* .common-btn-text {
   color: v-bind('outline ? themeColor : "white"');
   font-size: v-bind('sizeObj.fontSize');
-}
+} */
 </style>
