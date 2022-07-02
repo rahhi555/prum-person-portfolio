@@ -1,5 +1,32 @@
 <script setup lang="ts">
+import type { TChartData } from "vue-chartjs/dist/types";
+
 const { currentUser } = useCurrentUser();
+const { data, pending } = useAsyncData("skills", () => GqlCategories(), { initialCache: false });
+
+const datasets = computed(() => {
+  return data.value?.categories?.flatMap((category, categoryIndex) => {
+    return category.skills?.map((skill) => {
+      const data: (null | number)[] = [null, null, null];
+      data[categoryIndex] = skill.level;
+      return {
+        label: skill.name,
+        data,
+        backgroundColor: `rgba(
+          ${Math.floor(Math.random() * 255)}, 
+          ${Math.floor(Math.random() * 255)}, 
+          ${Math.floor(Math.random() * 255)}, 
+          0.5)`,
+      };
+    });
+  });
+});
+
+const chartData = ref<TChartData<"bar">>({
+  labels: data.value?.categories?.map((category) => category.name),
+  // @ts-ignore
+  datasets,
+});
 </script>
 
 <template>
@@ -22,6 +49,7 @@ const { currentUser } = useCurrentUser();
       <NuxtLink :to="`/users/${currentUser.id}/skills/edit`">
         <AtomsButton :color="'primary'" :text="'スキルを編集する'" :size="'large'" />
       </NuxtLink>
+      <AtomsChartBar v-if="!pending" :chart-data="chartData" style="margin-top: 100px;" />
     </div>
   </div>
 </template>
@@ -54,7 +82,7 @@ const { currentUser } = useCurrentUser();
   width: min(360px, 100%);
 }
 
-.wrapper > .profile-wrapper > .profile-body > h1{
+.wrapper > .profile-wrapper > .profile-body > h1 {
   font-weight: 700;
   font-size: 36px;
   border-bottom: 1px solid black;
