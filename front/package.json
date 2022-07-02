@@ -15,8 +15,10 @@
     "storybook-addon-designs": "^6.3.1"
   },
   "dependencies": {
+    "chart.js": "^3.8.0",
     "nuxt": "^3.0.0-rc.4",
-    "nuxt-graphql-client": "^0.0.33"
+    "nuxt-graphql-client": "^0.0.33",
+    "vue-chartjs": "^4.1.1"
   },
   "msw": {
     "workerDirectory": "public"
