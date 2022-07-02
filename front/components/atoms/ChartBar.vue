@@ -1,7 +1,10 @@
 <script setup lang="ts">
+// chart.jsを分割代入する方式だと以下のようなエラーが出る
+// Named export 'BarElement' not found. The requested module 'chart.js' is a CommonJS module,
+// which may not support all module.exports as named exports.
+import 'chart.js/auto'
 import { Bar } from 'vue-chartjs'
 import type { TChartData, TChartOptions } from 'vue-chartjs/dist/types'
-import{ Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Plugin } from 'chart.js'
 
 export type Props = {
   chartId?: string,
@@ -10,11 +13,8 @@ export type Props = {
   height?: number,
   cssClasses?: string,
   styles?: Partial<CSSStyleDeclaration>,
-  plugins?: Plugin<'bar'>[],
   chartData: TChartData<'bar'>,
 }
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 withDefaults(defineProps<Props>(), {
   chartId: 'bar-chart',
@@ -43,7 +43,6 @@ const chartOptions: TChartOptions<'bar'> = {
     :chart-data="chartData"
     :chart-id="chartId"
     :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
     :css-classes="cssClasses"
     :styles="styles"
     :width="width"
