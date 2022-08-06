@@ -15,6 +15,8 @@ const vModelValue = computed({
 })
 
 console.log('fuga')
+
+console.log('4')
 </script>
 
 <template>
