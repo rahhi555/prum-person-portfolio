@@ -2,22 +2,23 @@
 import { computed } from 'vue'
 
 const props = defineProps<{ id: string, type: string, label: string, modelValue: string | number }>()
-const emit = defineEmits<{(e: 'update:modelValue', value: string | number ): void}>()
+const emit = defineEmits<{(e: 'update:modelValue', value: string | number): void}>()
 
 const vModelValue = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: value => emit('update:modelValue', value)
 })
 </script>
 
 <template>
   <div class="input-form">
-    <label :for="id">{{label}}</label>
-    <input  :id="id"       
-            :type="type"
-            v-model="vModelValue"
-            v-bind="$attrs"
-             />
+    <label :for="id">{{ label }}</label>
+    <input
+      :id="id"
+      v-model="vModelValue"
+      :type="type"
+      v-bind="$attrs"
+    >
   </div>
 </template>
 

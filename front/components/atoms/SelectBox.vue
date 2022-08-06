@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed } from 'vue'
 
 export interface Props {
   options: number[] | string[];
   modelValue: number;
 }
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>()
 
 const vModelValue = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: value => emit('update:modelValue', value)
 })
 </script>
 
 <template>
   <div class="select-wrap">
-    <select class="select-base" v-model="vModelValue">
-      <option 
-        v-for="option in options" 
-        :value="option" 
+    <select v-model="vModelValue" class="select-base">
+      <option
+        v-for="option in options"
+        :key="option"
+        :value="option"
       >
         {{ option }}
       </option>
