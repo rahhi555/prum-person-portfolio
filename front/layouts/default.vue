@@ -3,7 +3,7 @@
     <OrganismsTheHeader />
     <main class="default-container">
       <slot />
-    </main> 
+    </main>
     <OrganismsTheFooter />
   </div>
 </template>

@@ -1,6 +1,8 @@
 <template>
   <footer class="footer">
-    <p class="footer-text">user name's portfolio site</p>
+    <p class="footer-text">
+      user name's portfolio site
+    </p>
   </footer>
 </template>
 
@@ -14,7 +16,7 @@
   gap: 10px;
 
   height: 40px;
-  
+
   background-color: var(--primary-color);
 }
 

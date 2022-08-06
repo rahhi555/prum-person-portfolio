@@ -1,18 +1,18 @@
 import { graphql } from 'msw'
-import type { LoginMutation, LoginMutationVariables, CurrentUserQuery } from "#build/gql-sdk"
+import type { LoginMutation, LoginMutationVariables, CurrentUserQuery } from '#build/gql-sdk'
 
 const user = {
-  id: "1",
-  email: "test1@example.com",
-  profile: "プロフィール初期値",
-  password: "password"
+  id: '1',
+  email: 'test1@example.com',
+  profile: 'プロフィール初期値',
+  password: 'password'
 }
 
 export const handlers = [
   graphql.mutation<LoginMutation, LoginMutationVariables>('login', (req, res, ctx) => {
     console.log('login')
     const { email, password } = req.variables
-    
+
     if (user.email === email && user.password == password) {
       return res(
         ctx.data({
@@ -48,4 +48,3 @@ export const handlers = [
     )
   })
 ]
-

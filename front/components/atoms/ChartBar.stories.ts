@@ -1,69 +1,69 @@
-import type { Story, Meta } from "@storybook/vue3"
-import { withDesign } from "storybook-addon-designs"
-import ChartBar from "./ChartBar.vue"
-import type { Props } from "./ChartBar.vue"
+import type { Story, Meta } from '@storybook/vue3'
+import { withDesign } from 'storybook-addon-designs'
+import ChartBar from './ChartBar.vue'
+import type { Props } from './ChartBar.vue'
 
 export default {
-  title: "ChartBar",
+  title: 'ChartBar',
   component: ChartBar,
   decorators: [withDesign]
 } as Meta
 
-const Template: Story = (args) => ({
+const Template: Story = args => ({
   components: { ChartBar },
-  setup() {
+  setup () {
     return { args }
   },
-  template: `<ChartBar v-bind="args" />`
+  template: '<ChartBar v-bind="args" />'
 })
 
 const props: Props = {
   chartData: {
-    labels: ["バックエンド", "フロントエンド", "インフラ"],
+    labels: ['バックエンド', 'フロントエンド', 'インフラ'],
     datasets: [{
-      label: "Ruby",
+      label: 'Ruby',
       data: [10, null, null],
-      backgroundColor: "#FF6384", 
+      backgroundColor: '#FF6384'
     },
     {
-      label: "Rails",
+      label: 'Rails',
       data: [20, null, null],
-      backgroundColor: "blue", 
+      backgroundColor: 'blue'
     },
     {
-      label: "Postgres",
+      label: 'Postgres',
       data: [30, null, null],
-      backgroundColor: "yellow", 
+      backgroundColor: 'yellow'
     },
     {
-      label: "vue",
+      label: 'vue',
       data: [null, 30, null],
-      backgroundColor: "green", 
+      backgroundColor: 'green'
     },
     {
-      label: "javascript",
+      label: 'javascript',
       data: [null, 15, null],
-      backgroundColor: "red", 
+      backgroundColor: 'red'
     },
     {
-      label: "typescript",
+      label: 'typescript',
       data: [null, 40, null],
-      backgroundColor: "purple"
+      backgroundColor: 'purple'
     },
     {
-      label: "AWS",
+      label: 'AWS',
       data: [null, null, 10],
-      backgroundColor: "orange"
+      backgroundColor: 'orange'
     },
     {
-      label: "GCP",
+      label: 'GCP',
       data: [null, null, 20],
-      backgroundColor: "grey"
+      backgroundColor: 'grey'
     },
     {
-      label: "Azure",
+      label: 'Azure',
       data: [null, null, 30],
-      backgroundColor: "purple"
+      backgroundColor: 'purple'
     }]
   }
 }
@@ -71,8 +71,8 @@ const props: Props = {
 export const Primary = Template.bind({})
 Primary.parameters = {
   design: {
-    type: "figma",
-    url: "https://www.figma.com/file/KP1lvtsJlEfHW9aF7brgz3/Prum-Academy-PF?node-id=3%3A23"
+    type: 'figma',
+    url: 'https://www.figma.com/file/KP1lvtsJlEfHW9aF7brgz3/Prum-Academy-PF?node-id=3%3A23'
   }
 }
 Primary.args = props

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import AtomsButton from "../atoms/Button.vue";
-import type { Props as BtnProps } from "../atoms/Button.vue";
+import AtomsButton from '../atoms/Button.vue'
+import type { Props as BtnProps } from '../atoms/Button.vue'
 export interface Props {
   title: string, buttonColor: BtnProps['color'], buttonText: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 
 const emit = defineEmits<{(e: 'buttonClick'): void}>()
 const buttonClick = () => {
@@ -18,7 +18,7 @@ const buttonClick = () => {
     <h3 class="card-title">
       {{ title }}
     </h3>
-    <AtomsButton 
+    <AtomsButton
       :color="buttonColor"
       :text="buttonText"
       :size="'medium'"

@@ -4,20 +4,22 @@ definePageMeta({
 })
 
 const user = reactive({
-  email: "",
-  password: ""
+  email: '',
+  password: ''
 })
 
 const { login } = useCurrentUser()
 </script>
 
-<template> 
+<template>
   <div class="login-wrapper">
-    <h1 class="login-h1">ログイン</h1>
+    <h1 class="login-h1">
+      ログイン
+    </h1>
     <form class="login-form">
-      <AtomsInput :id="'email'" :type="'email'" :label="'メールアドレス'" v-model="user.email"/>
-      <AtomsInput :id="'password'" :type="'password'" :label="'パスワード'" v-model="user.password" />
-      <AtomsButton :color="'primary'" :type="'submit'" :text="'ログインする'" @click.prevent="login(user)" /> 
+      <AtomsInput :id="'email'" v-model="user.email" :type="'email'" :label="'メールアドレス'" />
+      <AtomsInput :id="'password'" v-model="user.password" :type="'password'" :label="'パスワード'" />
+      <AtomsButton :color="'primary'" :type="'submit'" :text="'ログインする'" @click.prevent="login(user)" />
     </form>
   </div>
 </template>

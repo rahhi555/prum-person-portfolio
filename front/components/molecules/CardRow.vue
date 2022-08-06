@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { useSlots, computed } from "vue";
+import { useSlots, computed } from 'vue'
 export interface Props {
-  size?: "medium" | "large";
+  size?: 'medium' | 'large';
 }
 
 const { size } = withDefaults(defineProps<Props>(), {
-  size: "large"
+  size: 'large'
 })
 
 const slotKeys = Object.keys(useSlots())
 
 const height = computed(() => {
   switch (size) {
-    case "medium":
-      return "57px"
-    case "large":
-      return "72px"
+    case 'medium':
+      return '57px'
+    case 'large':
+      return '72px'
   }
 })
 </script>
@@ -24,9 +24,9 @@ const height = computed(() => {
   <div class="row">
     <template v-for="key in slotKeys">
       <div class="item">
-        <slot :name="key"></slot>
+        <slot :name="key" />
       </div>
-    </template> 
+    </template>
   </div>
 </template>
 

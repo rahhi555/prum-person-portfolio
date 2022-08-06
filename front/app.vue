@@ -15,10 +15,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <OrganismsAlert/>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <OrganismsAlert />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>
 
 <style>

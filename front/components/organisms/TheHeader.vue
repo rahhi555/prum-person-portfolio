@@ -4,14 +4,16 @@ const { currentUser, logout } = useCurrentUser()
 
 <template>
   <header class="header">
-    <NuxtLink class="header-title" to="/">My Portfolio</NuxtLink>
+    <NuxtLink class="header-title" to="/">
+      My Portfolio
+    </NuxtLink>
     <button v-if="currentUser" class="login-btn" @click="logout">
-      <span  class="login-btn-font">ログアウト</span>
+      <span class="login-btn-font">ログアウト</span>
     </button>
     <NuxtLink v-else="currentUser" class="login-btn" to="/login">
-      <span  class="login-btn-font">ログイン</span>
+      <span class="login-btn-font">ログイン</span>
     </NuxtLink>
-  </header>  
+  </header>
 </template>
 
 <style scoped>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { TChartData } from "vue-chartjs/dist/types";
+import type { TChartData } from 'vue-chartjs/dist/types'
 
-const { currentUser } = useCurrentUser();
-const { data, pending } = useAsyncData("skills", () => GqlCategories(), { initialCache: false });
+const { currentUser } = useCurrentUser()
+const { data, pending } = useAsyncData('skills', () => GqlCategories(), { initialCache: false })
 
 const datasets = computed(() => {
   return data.value?.categories?.flatMap((category, categoryIndex) => {
     return category.skills?.map((skill) => {
-      const data: (null | number)[] = [null, null, null];
-      data[categoryIndex] = skill.level;
+      const data: (null | number)[] = [null, null, null]
+      data[categoryIndex] = skill.level
       return {
         label: skill.name,
         data,
@@ -16,23 +16,23 @@ const datasets = computed(() => {
           ${Math.floor(Math.random() * 255)}, 
           ${Math.floor(Math.random() * 255)}, 
           ${Math.floor(Math.random() * 255)}, 
-          0.5)`,
-      };
-    });
-  });
-});
+          0.5)`
+      }
+    })
+  })
+})
 
-const chartData = ref<TChartData<"bar">>({
-  labels: data.value?.categories?.map((category) => category.name),
+const chartData = ref<TChartData<'bar'>>({
+  labels: data.value?.categories?.map(category => category.name),
   // @ts-ignore
-  datasets,
-});
+  datasets
+})
 </script>
 
 <template>
   <div class="wrapper">
     <div class="profile-wrapper">
-      <img class="avater" :src="currentUser?.avatar || ''" />
+      <img class="avater" :src="currentUser?.avatar || ''">
       <div class="profile-body">
         <h1>自己紹介</h1>
         <p class="profile-text">
@@ -44,7 +44,7 @@ const chartData = ref<TChartData<"bar">>({
       </div>
     </div>
 
-    <div class="skill-wrapper" v-if="currentUser">
+    <div v-if="currentUser" class="skill-wrapper">
       <h1>スキルチャート</h1>
       <NuxtLink :to="`/users/${currentUser.id}/skills/edit`">
         <AtomsButton :color="'primary'" :text="'スキルを編集する'" :size="'large'" />

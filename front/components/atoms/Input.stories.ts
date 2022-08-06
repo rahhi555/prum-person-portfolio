@@ -1,9 +1,9 @@
-import type { Story, Meta } from "@storybook/vue3"
-import { withDesign } from "storybook-addon-designs"
-import InputVue from "./Input.vue"
+import type { Story, Meta } from '@storybook/vue3'
+import { withDesign } from 'storybook-addon-designs'
+import InputVue from './Input.vue'
 
 export default {
-  title: "InputVue",
+  title: 'InputVue',
   component: InputVue,
   decorators: [withDesign],
   parameters: {
@@ -14,24 +14,24 @@ export default {
   }
 } as Meta
 
-const Template: Story = (args) => ({
+const Template: Story = args => ({
   components: { InputVue },
-  setup() {
+  setup () {
     return { args }
   },
-  template: `<InputVue v-bind="args" />`
+  template: '<InputVue v-bind="args" />'
 })
 
 export const Email = Template.bind({})
 Email.args = {
-  id: "email",
-  type: "email",
-  label: "メールアドレス"
+  id: 'email',
+  type: 'email',
+  label: 'メールアドレス'
 }
 
 export const Password = Template.bind({})
 Password.args = {
-  id: "password",
-  type: "password",
-  label: "パスワード"
+  id: 'password',
+  type: 'password',
+  label: 'パスワード'
 }

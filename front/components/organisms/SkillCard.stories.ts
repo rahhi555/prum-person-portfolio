@@ -1,19 +1,19 @@
-import type { Story, Meta } from "@storybook/vue3"
-import { withDesign } from "storybook-addon-designs"
-import SkillCard from "./SkillCard.vue"
+import type { Story, Meta } from '@storybook/vue3'
+import { withDesign } from 'storybook-addon-designs'
+import SkillCard from './SkillCard.vue'
 
 export default {
-  title: "SkillCard",
+  title: 'SkillCard',
   component: SkillCard,
   decorators: [withDesign]
 } as Meta
 
-const Template: Story = (args) => ({
+const Template: Story = args => ({
   components: { SkillCard },
-  setup() { 
+  setup () {
     return { args }
   },
-  template: `<SkillCard v-bind="args" />`
+  template: '<SkillCard v-bind="args" />'
 })
 
 type Category = {
@@ -27,17 +27,17 @@ type Category = {
 }
 
 const category: Category = {
-  id: "1",
-  name: "バックエンド",
+  id: '1',
+  name: 'バックエンド',
   skills: [
-    { id: "1", level: 10, name: "Ruby" },
-    { id: "2", level: 50, name: "Rails" },
-    { id: "3", level: 100, name: "MySQL" },
+    { id: '1', level: 10, name: 'Ruby' },
+    { id: '2', level: 50, name: 'Rails' },
+    { id: '3', level: 100, name: 'MySQL' }
   ]
 }
 
 export const Primary = Template.bind({})
-Primary.args = { category } 
+Primary.args = { category }
 
 Primary.parameters = {
   design: {

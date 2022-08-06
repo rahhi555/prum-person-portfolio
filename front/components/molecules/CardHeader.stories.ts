@@ -1,37 +1,36 @@
-import type { Story, Meta } from "@storybook/vue3"
-import { withDesign } from "storybook-addon-designs"
-import CardHeader from "./CardHeader.vue"
-import type { Props } from "./CardHeader.vue"
+import type { Story, Meta } from '@storybook/vue3'
+import { withDesign } from 'storybook-addon-designs'
+import CardHeader from './CardHeader.vue'
+import type { Props } from './CardHeader.vue'
 
 export default {
-  title: "CardHeader",
+  title: 'CardHeader',
   component: CardHeader,
   decorators: [withDesign],
   argTypes: {
     buttonColor: {
       control: {
-        type: "inline-radio",
-        options: ["primary", "secondary"]
+        type: 'inline-radio',
+        options: ['primary', 'secondary']
       }
     }
   }
 } as Meta
 
-const Template: Story = (args) => ({
+const Template: Story = args => ({
   components: { CardHeader },
-  setup() { 
+  setup () {
     return { args }
   },
-  template: `<CardHeader v-bind="args" />`
+  template: '<CardHeader v-bind="args" />'
 })
 
-
 export const Primary = Template.bind({})
-Primary.args = { 
-  title: "バックエンド",
-  buttonColor: "primary",
-  buttonText: "スキルを追加する"
- } as Props
+Primary.args = {
+  title: 'バックエンド',
+  buttonColor: 'primary',
+  buttonText: 'スキルを追加する'
+} as Props
 
 Primary.parameters = {
   design: {

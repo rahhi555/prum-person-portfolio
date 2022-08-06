@@ -6,7 +6,7 @@ const { color, message, visible } = toRefs(alertStatus.value)
 
 <template>
   <div class="alert">
-    <p>{{message}}</p>
+    <p>{{ message }}</p>
   </div>
 </template>
 

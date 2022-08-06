@@ -7,7 +7,7 @@ interface GraphqlRequest extends Object {
 
 export const hasOperationName = (req: GraphqlRequest, operationName: string) => {
   const { body } = req
-  
+
   return (
     body.hasOwnProperty('operationName') && body.operationName === operationName
   )
@@ -25,7 +25,7 @@ export const aliasQuery = (req: GraphqlRequest, operationName: string) => {
 /**
  * operationNameと一致した場合、ミューテーションのエイリアスを返す
  */
- export const aliasMutation = (req: GraphqlRequest, operationName: string) => {
+export const aliasMutation = (req: GraphqlRequest, operationName: string) => {
   if (hasOperationName(req, operationName)) {
     req.alias = `gql${operationName}Mutation`
   }

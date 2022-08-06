@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Category, gqlErrorHandling } from "~/graphql";
-import CardHeader from "../molecules/CardHeader.vue";
-import CardRow from "../molecules/CardRow.vue";
-import SelectBox from "../atoms/SelectBox.vue";
-import AtomsButton from "../atoms/Button.vue";
+import CardHeader from '../molecules/CardHeader.vue'
+import CardRow from '../molecules/CardRow.vue'
+import SelectBox from '../atoms/SelectBox.vue'
+import AtomsButton from '../atoms/Button.vue'
+import { Category, gqlErrorHandling } from '~/graphql'
 export interface NavigateQuery {
   categoryId: string;
   categoryName: string;
@@ -11,7 +11,7 @@ export interface NavigateQuery {
 
 const { currentUser } = useCurrentUser()
 
-const { category } = defineProps<{ category: Category }>();
+const { category } = defineProps<{ category: Category }>()
 
 const navigateNewSkill = () => {
   navigateTo({
@@ -20,26 +20,26 @@ const navigateNewSkill = () => {
       categoryId: category.id,
       categoryName: category.name
     }
-  });
+  })
 }
 
 const updateSkill = async ({ id, level }: { id: string, level: number }) => {
-  await GqlUpdateSkill({ id, level }).catch(gqlErrorHandling);
+  await GqlUpdateSkill({ id, level }).catch(gqlErrorHandling)
   const { showAlert } = useAlert()
   showAlert({
-    message: "スキルを更新しました",
-    color: "var(--success-color)"
+    message: 'スキルを更新しました',
+    color: 'var(--success-color)'
   })
 }
 
 const deleteSkill = async (id: string) => {
-  await GqlDeleteSkill({ id }).catch(gqlErrorHandling);
+  await GqlDeleteSkill({ id }).catch(gqlErrorHandling)
   const index = category.skills!.findIndex(skill => skill.id === id)
   category.skills!.splice(index, 1)
   const { showAlert } = useAlert()
   showAlert({
-    message: "スキルを削除しました",
-    color: "var(--success-color)"
+    message: 'スキルを削除しました',
+    color: 'var(--success-color)'
   })
 }
 </script>
@@ -48,17 +48,21 @@ const deleteSkill = async (id: string) => {
   <div class="card-wrapper">
     <CardHeader
       :title="category.name"
-      :buttonColor="'primary'"
-      :buttonText="'スキルを追加する'"
+      :button-color="'primary'"
+      :button-text="'スキルを追加する'"
       @button-click="navigateNewSkill"
-    ></CardHeader>
+    />
 
     <div class="card-body">
       <CardRow :size="'medium'">
-        <template #header1>習得スキル</template>
-        <template #header2>習得レベル</template>
-        <template #header3></template>
-        <template #header4></template>
+        <template #header1>
+          習得スキル
+        </template>
+        <template #header2>
+          習得レベル
+        </template>
+        <template #header3 />
+        <template #header4 />
       </CardRow>
 
       <CardRow v-for="skill in category.skills">
@@ -68,14 +72,15 @@ const deleteSkill = async (id: string) => {
 
         <template #select-box>
           <SelectBox
+            v-model="skill.level"
             :options="Array.from({ length: 101 }, (_, i) => i)"
-            v-model="skill.level" />
+          />
         </template>
 
         <template #primary-button>
           <AtomsButton
-            :text="'習得レベルを保存する'" 
-            :color="'primary'" 
+            :text="'習得レベルを保存する'"
+            :color="'primary'"
             :outline="true"
             :size="'small'"
             @click="updateSkill({ id: skill.id, level: skill.level })"
@@ -83,12 +88,12 @@ const deleteSkill = async (id: string) => {
         </template>
 
         <template #secondary-button>
-          <AtomsButton 
-            :text="'スキルを削除する'" 
+          <AtomsButton
+            :text="'スキルを削除する'"
             :color="'secondary'"
             :size="'small'"
             @click="deleteSkill(skill.id)"
-           />
+          />
         </template>
       </CardRow>
     </div>

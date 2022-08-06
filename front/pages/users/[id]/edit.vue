@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { gqlErrorHandling } from "~/graphql";
+import { gqlErrorHandling } from '~/graphql'
 
 definePageMeta({
-  middleware: "auth",
-});
+  middleware: 'auth'
+})
 
-const { updateCurrentUser, currentUser } = useCurrentUser();
+const { updateCurrentUser, currentUser } = useCurrentUser()
 
-const newProfile = ref(currentUser.value?.profile || "");
+const newProfile = ref(currentUser.value?.profile || '')
 
 const { uploadFile, preview_url, setAvatar } = useFileUpload()
 
 const updateUser = async () => {
   try {
-    await uploadFile("user")
+    await uploadFile('user')
     const { updateUser } = await GqlUpdateUser({ profile: newProfile.value })
-    
-    if (updateUser == null) throw new Error();
 
-    await updateCurrentUser(updateUser.user);
+    if (updateUser == null) { throw new Error() }
+
+    await updateCurrentUser(updateUser.user)
     navigateTo('/')
   } catch (e) {
-    gqlErrorHandling(e);
+    gqlErrorHandling(e)
   }
-};
+}
 </script>
 
 <template>
@@ -31,12 +31,12 @@ const updateUser = async () => {
     <h1>自己紹介を編集する</h1>
     <form class="edit-profile-form">
       <label for="edit-profile">自己紹介文</label>
-      <textarea id="edit-profile" v-model="newProfile"></textarea>
+      <textarea id="edit-profile" v-model="newProfile" />
 
       <label for="edit-avatar">アバター画像</label>
-      <input id="edit-avatar" type="file" accept="image/png,image/jpeg" @change="setAvatar" />
-      <img :src="preview_url" />
-      <AtomsButton color="primary" text="自己紹介を確定する" @click.prevent="updateUser"></AtomsButton>
+      <input id="edit-avatar" type="file" accept="image/png,image/jpeg" @change="setAvatar">
+      <img :src="preview_url">
+      <AtomsButton color="primary" text="自己紹介を確定する" @click.prevent="updateUser" />
     </form>
   </div>
 </template>

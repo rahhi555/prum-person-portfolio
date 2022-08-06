@@ -1,9 +1,9 @@
-import type { Story, Meta } from "@storybook/vue3"
-import { withDesign } from "storybook-addon-designs"
-import ButtonVue from "./Button.vue"
+import type { Story, Meta } from '@storybook/vue3'
+import { withDesign } from 'storybook-addon-designs'
+import ButtonVue from './Button.vue'
 
 export default {
-  title: "ButtonVue",
+  title: 'ButtonVue',
   component: ButtonVue,
   decorators: [withDesign],
   argTypes: {
@@ -22,12 +22,12 @@ export default {
   }
 } as Meta
 
-const Template: Story = (args) => ({
+const Template: Story = args => ({
   components: { ButtonVue },
-  setup() {
+  setup () {
     return { args }
   },
-  template: `<ButtonVue v-bind="args" />`
+  template: '<ButtonVue v-bind="args" />'
 })
 
 export const Primary = Template.bind({})

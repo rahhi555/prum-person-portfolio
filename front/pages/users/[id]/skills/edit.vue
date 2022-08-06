@@ -1,18 +1,19 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: "auth",
-});
+  middleware: 'auth'
+})
 
-const { data } = await useAsyncData('categories', () => GqlCategories(), { initialCache: false });
+const { data } = await useAsyncData('categories', () => GqlCategories(), { initialCache: false })
 </script>
 
 <template>
   <div class="edit-wrapper">
     <OrganismsSkillCard
       v-for="category in data.categories"
+      :key="category.id"
       :category="category"
       class="card"
-      />
+    />
   </div>
 </template>
 
