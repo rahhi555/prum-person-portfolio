@@ -13,6 +13,8 @@ const vModelValue = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value)
 })
+
+console.log('hoge')
 </script>
 
 <template>
