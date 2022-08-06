@@ -14,7 +14,7 @@ const vModelValue = computed({
   set: value => emit('update:modelValue', value)
 })
 
-console.log('hoge')
+console.log('fuga')
 </script>
 
 <template>
