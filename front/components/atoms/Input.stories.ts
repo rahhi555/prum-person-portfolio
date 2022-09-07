@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/vue3'
 import { withDesign } from 'storybook-addon-designs'
-import InputVue from './Input.vue'
+import InputVue from './TheInput.vue'
 
 export default {
   title: 'InputVue',
