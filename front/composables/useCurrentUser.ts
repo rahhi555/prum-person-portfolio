@@ -13,6 +13,7 @@ export const useCurrentUser = () => {
    * api認証に必要なjwt
    */
   const jwt = useState<string | null>("json_web_token");
+  
 
   /**
    * ログイン
